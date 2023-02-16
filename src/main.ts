@@ -1,6 +1,7 @@
 import { app, BrowserWindow } from "electron";
 import { autoUpdater } from "electron-updater";
 import loadFlashPlugin from "./flash-loader";
+import startMenu from "./menu";
 import createWindow from "./window";
 
 const url = 'https://play.newcp.net/';
@@ -17,16 +18,14 @@ autoUpdater.checkForUpdatesAndNotify();
 
 let mainWindow: BrowserWindow;
 
-/*function clearCache() {
-  mainWindow.webContents.session.clearCache();
-*/
-
 app.on('ready', () => {
   mainWindow = createWindow(url);
 
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
+
+  startMenu(mainWindow);
 });
 
 app.on('window-all-closed', () => {

@@ -5,7 +5,7 @@
   "main": "./compiled/main.js",
   "scripts": {
     "clean": "rimraf compiled/",
-    "copy-files": "copyfiles -u 1 assets/**/* compiled/assets/",
+    "copy-files": "copyfiles -u 1 assets/**/* assets/* compiled/assets/",
     "build-tsc": "yarn clean && tsc && yarn copy-files",
     "start": "yarn build-tsc && electron ./compiled/main.js",
     "lint": "eslint -c .eslintrc --ext .ts ./src",

@@ -1,0 +1,55 @@
+{
+  "name": "cpclient",
+  "version": "1.0.0",
+  "description": "CP Client",
+  "main": "./compiled/main.js",
+  "scripts": {
+    "clean": "rimraf compiled/",
+    "copy-files": "copyfiles -u 1 assets/**/* compiled/assets/",
+    "build-tsc": "yarn clean && tsc && yarn copy-files",
+    "start": "yarn build-tsc && electron ./compiled/main.js",
+    "lint": "eslint -c .eslintrc --ext .ts ./src",
+    "build-win": "electron-builder build --win --ia32 --publish never",
+    "build-mac": "electron-builder build --mac --ia32 --publish never",
+    "build-linux": "electron-builder build --linux --ia32 --publish never --x64"
+  },
+  "bugs": {
+    "url": "https://github.com/renanrcp/CPClient/issues"
+  },
+  "homepage": "https://github.com/renanrcp/CPClient/#readme",
+  "repository": "https://github.com/renanrcp/CPClient",
+  "author": "renanrcp",
+  "license": "MIT",
+  "build": {
+    "electronDist": "node_modules/electron/dist",
+    "appId": "com.clubpenguin.client",
+    "productName": "CPClient",
+    "asar": "false",
+    "win": {
+      "publish": "github"
+    },
+    "linux": {
+      "publish": "github",
+      "target": "deb",
+      "maintainer": "renanrcp",
+      "icon": "./assets/icon.icns"
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^18.13.0",
+    "@typescript-eslint/eslint-plugin": "^5.52.0",
+    "@typescript-eslint/parser": "^5.52.0",
+    "copyfiles": "^2.4.1",
+    "electron": "^11.3.0",
+    "electron-builder": "^22.2.0",
+    "eslint": "^8.34.0",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "rimraf": "^4.1.2",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "discord-rpc": "^4.0.1",
+    "electron-is-dev": "^2.0.0",
+    "electron-updater": "^5.3.0"
+  }
+}

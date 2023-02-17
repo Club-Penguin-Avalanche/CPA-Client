@@ -3,6 +3,7 @@ import { enableOrDisableAdblocker } from "./adblocker";
 import clearCache from "./cache";
 import openDevTools from "./dev-tools";
 import { Store } from "./store";
+import changeClubPenguinUrl from "./urlchanger";
 
 const createMenuTemplate = (store: Store, mainWindow: BrowserWindow): MenuItemConstructorOptions[] => {
   const options = {
@@ -17,6 +18,10 @@ const createMenuTemplate = (store: Store, mainWindow: BrowserWindow): MenuItemCo
         label: 'Open dev tools',
         click: () => { openDevTools(mainWindow); }
       },
+      {
+        label: 'Change Club Penguin URL',
+        click: () => { changeClubPenguinUrl(store, mainWindow); }
+      }
     ]
   };
 

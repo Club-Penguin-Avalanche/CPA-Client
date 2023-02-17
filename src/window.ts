@@ -2,6 +2,7 @@ import { BrowserWindow } from "electron";
 import path = require("path");
 import { createAdblocker } from "./adblocker";
 import { Store } from "./store";
+import { getUrlFromStore } from "./urlchanger";
 
 const createWindow = async (store: Store) => {
   const mainWindow = new BrowserWindow({
@@ -19,7 +20,7 @@ const createWindow = async (store: Store) => {
 
   await createAdblocker(store, mainWindow);
   
-  mainWindow.loadURL(store.public.get('url'));
+  mainWindow.loadURL(getUrlFromStore(store));
 
   return mainWindow;
 };

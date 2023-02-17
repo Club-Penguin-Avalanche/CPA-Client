@@ -50,6 +50,7 @@
   "dependencies": {
     "discord-rpc": "^4.0.1",
     "electron-is-dev": "^2.0.0",
+    "electron-store": "^8.1.0",
     "electron-updater": "^5.3.0"
   }
 }

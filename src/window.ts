@@ -1,7 +1,9 @@
 import { BrowserWindow } from "electron";
 import path = require("path");
+import { createAdblocker } from "./adblocker";
+import { Store } from "./store";
 
-const createWindow = (url: string) => {
+const createWindow = async (store: Store) => {
   const mainWindow = new BrowserWindow({
     width: 1280,
     height: 720,
@@ -11,10 +13,13 @@ const createWindow = (url: string) => {
       plugins: true
     }
   });
-  mainWindow.maximize();
 
   mainWindow.setMenu(null);
-  mainWindow.loadURL(url);
+  mainWindow.maximize();
+
+  await createAdblocker(store, mainWindow);
+  
+  mainWindow.loadURL(store.public.get('url'));
 
   return mainWindow;
 };

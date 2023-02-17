@@ -2,15 +2,15 @@ import { app, BrowserWindow } from "electron";
 import { autoUpdater } from "electron-updater";
 import loadFlashPlugin from "./flash-loader";
 import startMenu from "./menu";
-import createPublicStore from "./store";
+import createStore from "./store";
 import createWindow from "./window";
 
-const store = createPublicStore();
-const url = store.get('url');
+const store = createStore();
 
 if (process.platform === 'linux') {
   app.commandLine.appendSwitch('no-sandbox');
 }
+
 
 loadFlashPlugin(app);
 
@@ -20,14 +20,14 @@ autoUpdater.checkForUpdatesAndNotify();
 
 let mainWindow: BrowserWindow;
 
-app.on('ready', () => {
-  mainWindow = createWindow(url);
-
+app.on('ready', async () => {
+  mainWindow = await createWindow(store);
+  
+  startMenu(store, mainWindow);
+  
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
-
-  startMenu(mainWindow);
 });
 
 app.on('window-all-closed', () => {
@@ -36,8 +36,10 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 });
 
-app.on('activate', () => {
+app.on('activate', async () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
-  if (mainWindow === null) createWindow(url);
+  if (mainWindow === null) {
+    mainWindow = await createWindow(store);
+  }
 });

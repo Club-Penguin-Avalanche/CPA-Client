@@ -1,8 +1,10 @@
 import { BrowserWindow, Menu, MenuItem, MenuItemConstructorOptions } from "electron";
+import { enableOrDisableAdblocker } from "./adblocker";
 import clearCache from "./cache";
 import openDevTools from "./dev-tools";
+import { Store } from "./store";
 
-const createMenuTemplate = (mainWindow: BrowserWindow): MenuItemConstructorOptions[] => {
+const createMenuTemplate = (store: Store, mainWindow: BrowserWindow): MenuItemConstructorOptions[] => {
   const options = {
     id: '1',
     label: 'Options',
@@ -18,13 +20,25 @@ const createMenuTemplate = (mainWindow: BrowserWindow): MenuItemConstructorOptio
     ]
   };
 
+  const adblock = {
+    id: '2',
+    label: 'Adblock',
+    submenu: [
+      {
+        label: 'Enable/Disable Adblock',
+        click: () => { enableOrDisableAdblocker(store, mainWindow); }
+      }
+    ]
+  };
+
   return [
     options,
+    adblock
   ];
 };
 
-const startMenu = (mainWindow: BrowserWindow) => {
-  const menuTemplate = createMenuTemplate(mainWindow);
+const startMenu = (store: Store, mainWindow: BrowserWindow) => {
+  const menuTemplate = createMenuTemplate(store, mainWindow);
 
   buildMenu(menuTemplate);
 };

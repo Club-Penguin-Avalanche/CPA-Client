@@ -21,6 +21,16 @@ const createMenuTemplate = (store: Store, mainWindow: BrowserWindow): MenuItemCo
       {
         label: 'Change Club Penguin URL',
         click: () => { changeClubPenguinUrl(store, mainWindow); }
+      },
+      {
+        label: 'Reload',
+        accelerator: 'F5',
+        click: () => { mainWindow.reload(); }
+      },
+      {
+        label: 'Reload without cache',
+        accelerator: 'CommandOrControl+R',
+        click: () => { mainWindow.webContents.reloadIgnoringCache(); }
       }
     ]
   };

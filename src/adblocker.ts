@@ -52,8 +52,6 @@ export const enableOrDisableAdblocker = async (store: Store, mainWindow: Browser
       return;
     }
 
-    console.log(blocker);
-
     startAdblocker(mainWindow, blocker);
   } else { 
     stopAdblocker(mainWindow, blocker);

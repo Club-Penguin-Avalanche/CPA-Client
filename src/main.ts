@@ -2,9 +2,11 @@ import { app, BrowserWindow } from "electron";
 import { autoUpdater } from "electron-updater";
 import loadFlashPlugin from "./flash-loader";
 import startMenu from "./menu";
+import createPublicStore from "./store";
 import createWindow from "./window";
 
-const url = 'https://play.newcp.net/';
+const store = createPublicStore();
+const url = store.get('url');
 
 if (process.platform === 'linux') {
   app.commandLine.appendSwitch('no-sandbox');

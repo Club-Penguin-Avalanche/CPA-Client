@@ -16,6 +16,7 @@ const createMenuTemplate = (store: Store, mainWindow: BrowserWindow): MenuItemCo
       },
       {
         label: 'Open dev tools',
+        accelerator: 'CommandOrControl+Shift+I',
         click: () => { openDevTools(mainWindow); }
       },
       {

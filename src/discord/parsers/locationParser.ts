@@ -61,6 +61,11 @@ export const parseAndUpdateLocation = async (store: Store, params: any) => {
   
   const state = getDiscordStateFromStore(store);
 
+  // 'The mine' and 'Cart Surfer' has ambigous match
+  if (match === 'mine' && url.includes(SWF_GAMES_PATH)) {
+    match = 'minecar1';
+  }
+
   // The location don't changed.
   if (state.currentLocation && state.currentLocation.match === match.toLowerCase()) {
     return;

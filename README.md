@@ -6,7 +6,7 @@ An alternative Club Penguin Client for any Club Penguin Private Server
 
 The installers are available from [releases](https://github.com/renanrcp/CPClient/releases).
 
-OBS: Mac Os installer not available for now.
+OBS: macOS installer not available for now.
 
 ## Features
 - URL setter for change to any CPPS the user want.

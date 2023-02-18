@@ -70,6 +70,19 @@ const getGameName = (store: Store) =>  {
   return CPPS_MAP.get(hostName) ?? 'Club Penguin';
 };
 
+const registerWindowReload = (store: Store, mainWindow: BrowserWindow) => {
+  mainWindow.webContents.on('did-start-loading', () => {
+    const state = getDiscordStateFromStore(store);
+
+    // In case URL changed
+    state.gameName = getGameName(store);
+
+    setUnloggedStatus(state);
+
+    setDiscordStateInStore(store, state);
+  });
+};
+
 export const startDiscordRPC = (store: Store, mainWindow: BrowserWindow) => {
   if (!getDiscordRPCEnabledFromStore(store)) {
     return;
@@ -108,6 +121,8 @@ export const startDiscordRPC = (store: Store, mainWindow: BrowserWindow) => {
   if (!rpcTrackingEnabled) {
     return;
   }
+
+  registerWindowReload(store, mainWindow);
 
   startRequestListener(store, mainWindow);
 };

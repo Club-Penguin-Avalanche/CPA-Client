@@ -84,6 +84,11 @@ export const parseAndUpdateRooms = async (store: Store, mainWindow: BrowserWindo
       match = 'robots';
     }
 
+    // The match of the "Catchin' Waves" minigame is 'waves'.
+    if (name.toLowerCase() === "catchin' waves") {
+      match = 'waves';
+    }
+
     // The match of the 'card jitsu' minigame is 'card'.
     if (name.toLowerCase() === 'card jitsu') {
       match = 'card';

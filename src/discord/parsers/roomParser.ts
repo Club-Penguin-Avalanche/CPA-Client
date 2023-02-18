@@ -23,6 +23,11 @@ export const parseAndUpdateRooms = async (store: Store, mainWindow: BrowserWindo
       name = 'Igloo';
     }
 
+    // Smoothie smash game name was incomplete.
+    if (name.toLowerCase() === 'smoothie') {
+      name = 'Smoothie Smash';
+    }
+
     // Fire, water and snow dojos has bugged names.
     if (name.toLowerCase() === "dojo fire") {
       name = 'Fire Dojo';
@@ -87,6 +92,26 @@ export const parseAndUpdateRooms = async (store: Store, mainWindow: BrowserWindo
     // The match of the "Catchin' Waves" minigame is 'waves'.
     if (name.toLowerCase() === "catchin' waves") {
       match = 'waves';
+    }
+
+    // The match of the 'Hydro Hopper' minigame is 'hydro'.
+    if (name.toLowerCase() === 'hydro hopper') {
+      match = 'hydro';
+    }
+
+    // The match of the 'Puffle Roundup' minigame is 'roundup'.
+    if (name.toLowerCase() === 'puffle roundup') {
+      match = 'roundup';
+    }
+
+    // The match of the 'Puffle Rescue' minigame is 'rescue'.
+    if (name.toLowerCase() === 'puffle rescue') {
+      match = 'rescue';
+    }
+
+    // The match of the 'Aqua Grabber' minigame is 'sub'.
+    if (name.toLowerCase() === 'aqua grabber') {
+      match = 'sub';
     }
 
     // The match of the 'card jitsu' minigame is 'card'.

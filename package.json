@@ -9,9 +9,9 @@
     "build-tsc": "yarn clean && tsc && yarn copy-files",
     "start": "yarn build-tsc && electron ./compiled/main.js",
     "lint": "eslint -c .eslintrc --ext .ts ./src",
-    "build-win": "electron-builder build --win --ia32 --publish never",
-    "build-mac": "electron-builder build --mac --ia32 --publish never",
-    "build-linux": "electron-builder build --linux --ia32 --publish never --x64"
+    "build-win": "electron-builder build --win --publish never",
+    "build-mac": "electron-builder build --mac --publish never",
+    "build-linux": "electron-builder build --linux --ia32 --x64 --publish never --x64"
   },
   "bugs": {
     "url": "https://github.com/renanrcp/CPClient/issues"

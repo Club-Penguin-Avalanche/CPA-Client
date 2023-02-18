@@ -26,3 +26,8 @@ If applicable, add screenshots to help explain your problem.
 ## Further technical details
 - APP version:
 - The OS (Windows/Linux Distributions/Mac Os) you're running on, and its version:
+- Logs from APP
+<!-- Logs location on Linux: ~/.config/cpclient/logs/main.log--> 
+<!-- Logs location on macOS: ~/Library/Logs/cpclient/main.log--> 
+<!-- Logs location on Windows: %USERPROFILE%\AppData\Roaming\{app name}\logs\main.log -->
+

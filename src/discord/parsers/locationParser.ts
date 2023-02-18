@@ -1,6 +1,6 @@
-import { getDiscordStateFromStore, setDiscordStateInStore, setLocationStatus, setUnloggedStatus } from "../../discord";
+import { getDiscordStateFromStore, setDiscordStateInStore, setLocationStatus, setUnknownLocationStatus } from "../../discord";
 import { Store } from "../../store";
-import { SWF_GAMES_PATH, SWF_MIME_FILE, SWF_ROOMS_PATH } from "../constants";
+import { SWF_GAMES_PATH, SWF_IGLOO_ROOM_PATH, SWF_MIME_FILE, SWF_QUESTS_GAMES_PATH, SWF_ROOMS_PATH } from "../constants";
 
 const isNumeric = (value: string) => {
   return ((value != null) &&
@@ -12,7 +12,7 @@ const isNumeric = (value: string) => {
 export const parseAndUpdateLocation = async (store: Store, params: any) => {
   const url = params.response.url as string;
 
-  if (!url.includes(SWF_ROOMS_PATH) && !url.includes(SWF_GAMES_PATH)) {
+  if (!url.includes(SWF_ROOMS_PATH) && !url.includes(SWF_GAMES_PATH) && !url.includes(SWF_QUESTS_GAMES_PATH) && !url.includes(SWF_IGLOO_ROOM_PATH)) {
     return;
   }
 
@@ -27,36 +27,53 @@ export const parseAndUpdateLocation = async (store: Store, params: any) => {
     return;
   }
 
-  const swfPathType = url.includes(SWF_ROOMS_PATH)
-    ? SWF_ROOMS_PATH
-    : SWF_GAMES_PATH;
+  let match: string;
 
-  const swfPathIndex = url.lastIndexOf(swfPathType) + swfPathType.length;
+  if (url.includes(SWF_QUESTS_GAMES_PATH)) {
+    const swfPathIndex = url.lastIndexOf(SWF_QUESTS_GAMES_PATH) + SWF_QUESTS_GAMES_PATH.length;
 
-  const match = swfPathType === SWF_GAMES_PATH
-    ? url.substring(swfPathIndex, url.indexOf(fileName + SWF_MIME_FILE) - 1)
-    : url.substring(swfPathIndex, swfMimeIndex);
+    match = url.substring(swfPathIndex, url.indexOf(fileName + SWF_MIME_FILE) - 1);
 
-  // if the match contains any '/' it is a subpath resource, just ignore it.
-  if (match.includes('/')) {
-    return;
+    // if the match contains any '/' it is a subpath resource, just ignore it.
+    if (match.includes('/')) {
+      return;
+    }
+  } else if (url.includes(SWF_IGLOO_ROOM_PATH)) {
+    match = 'igloo';
+  }
+  else {
+    const swfPathType = url.includes(SWF_ROOMS_PATH)
+      ? SWF_ROOMS_PATH
+      : SWF_GAMES_PATH;
+
+    const swfPathIndex = url.lastIndexOf(swfPathType) + swfPathType.length;
+
+    match = swfPathType === SWF_GAMES_PATH
+      ? url.substring(swfPathIndex, url.indexOf(fileName + SWF_MIME_FILE) - 1)
+      : url.substring(swfPathIndex, swfMimeIndex);
+
+    // if the match contains any '/' it is a subpath resource, just ignore it.
+    if (match.includes('/')) {
+      return;
+    }
   }
 
+  
   const state = getDiscordStateFromStore(store);
 
   // The location don't changed.
-  if (state.currentLocation && state.currentLocation.match === match) {
+  if (state.currentLocation && state.currentLocation.match === match.toLowerCase()) {
     return;
   }
 
   const location = state.trackedLocations.filter(location => {
-    return location.match === match;
+    return location.match === match.toLowerCase();
   })[0];
 
   state.currentLocation = location;
 
   if (!location) {
-    await setUnloggedStatus(state);
+    await setUnknownLocationStatus(state, match);
   } else {
     await setLocationStatus(state, location);
   }

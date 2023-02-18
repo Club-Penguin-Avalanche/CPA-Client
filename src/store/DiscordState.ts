@@ -6,6 +6,7 @@ export type DiscordState = {
   client?: Client,
   gameName?: string,
   startTimestamp?: Date,
+  windowReloadRegistered?: boolean,
 }
 
 export type CPLocation = {

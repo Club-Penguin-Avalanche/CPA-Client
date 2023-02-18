@@ -1,5 +1,6 @@
 import { BrowserWindow } from "electron";
 import { Store } from "../store";
+import { ROOMS_PATH, SWF_MIME_FILE } from "./constants";
 import { parseAndUpdateLocation } from "./parsers/locationParser";
 import { parseAndUpdateRooms } from "./parsers/roomParser";
 

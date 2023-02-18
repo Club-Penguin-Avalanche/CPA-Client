@@ -2,6 +2,7 @@ import { BrowserWindow, Menu, MenuItem, MenuItemConstructorOptions } from "elect
 import { enableOrDisableAdblocker } from "./adblocker";
 import clearCache from "./cache";
 import openDevTools from "./dev-tools";
+import { enableOrDisableDiscordRPC, enableOrDisableDiscordRPCLocationTracking } from "./discord";
 import { Store } from "./store";
 import changeClubPenguinUrl from "./urlchanger";
 
@@ -47,9 +48,25 @@ const createMenuTemplate = (store: Store, mainWindow: BrowserWindow): MenuItemCo
     ]
   };
 
+  const discord = {
+    id: '3',
+    label: 'Discord',
+    submenu: [
+      {
+        label: 'Enable/Disable Discord Rich Presence',
+        click: () => { enableOrDisableDiscordRPC(store, mainWindow); }
+      },
+      {
+        label: 'Enable/Disable Discord Rich Presence location tracking',
+        click: () => { enableOrDisableDiscordRPCLocationTracking(store, mainWindow); }
+      }
+    ]
+  };
+
   return [
     options,
-    adblock
+    adblock,
+    discord
   ];
 };
 

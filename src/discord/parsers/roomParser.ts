@@ -24,15 +24,15 @@ export const parseAndUpdateRooms = async (store: Store, mainWindow: BrowserWindo
     }
 
     // Fire, water and snow dojos has bugged names.
-    if (name.toLowerCase() === "Dojo Fire") {
+    if (name.toLowerCase() === "dojo fire") {
       name = 'Fire Dojo';
     }
 
-    if (name.toLowerCase() === "Dojo Water") {
+    if (room.room_key.toLowerCase() === "dojowater") {
       name = 'Water Dojo';
     }
 
-    if (name.toLowerCase() === "CJ Snow Dojo") {
+    if (name.toLowerCase() === "cj snow dojo") {
       name = 'Snow Dojo';
     }
 
@@ -51,6 +51,11 @@ export const parseAndUpdateRooms = async (store: Store, mainWindow: BrowserWindo
       type = CPLocationType.Game;
     }
 
+    // Igloo don't have 'room_key'.
+    if (name.toLowerCase() === 'igloo') {
+      type = CPLocationType.Room;
+    }
+
     let match: string;
 
     if (key) {
@@ -59,9 +64,19 @@ export const parseAndUpdateRooms = async (store: Store, mainWindow: BrowserWindo
       match = String(room.name.toLowerCase().replace(' ', ''));
     }
 
+    // If the game is a EPF quest we need to replace the 'mission' word to 'q' (quest) in match.
+    if (name.toLowerCase().includes('mission')) {
+      match = room.name.toLowerCase().replace('mission', 'q');
+    }
+
     // The match of the 'sled race' minigame is 'sled'.
     if (name.toLowerCase() === 'sled race') {
       match = 'sled';
+    }
+
+    // The match of the 'system defender' minigame is 'sled'.
+    if (name.toLowerCase() === 'system defender') {
+      match = 'tower';
     }
 
     // The match of the 'bits and bolts' minigame is 'robots'.
@@ -72,6 +87,16 @@ export const parseAndUpdateRooms = async (store: Store, mainWindow: BrowserWindo
     // The match of the 'card jitsu' minigame is 'card'.
     if (name.toLowerCase() === 'card jitsu') {
       match = 'card';
+    }
+
+    // The match of the 'fire sensei' room is 'card'.
+    if (name.toLowerCase() === 'fire sensei') {
+      match = 'senseifire';
+    }
+
+    // The match of the 'igloo' room is 'igloo'.
+    if (name.toLowerCase() === 'igloo') {
+      match = 'igloo';
     }
 
     const cpLocation: CPLocation = {

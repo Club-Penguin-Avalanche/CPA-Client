@@ -28,11 +28,13 @@
     "win": {
       "publish": "github"
     },
+    "mac": {
+      "icon": "./assets/icon.icns"
+    },
     "linux": {
       "publish": "github",
       "target": "deb",
-      "maintainer": "renanrcp",
-      "icon": "./assets/icon.icns"
+      "maintainer": "renanrcp"
     }
   },
   "devDependencies": {

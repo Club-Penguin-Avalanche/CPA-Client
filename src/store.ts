@@ -13,6 +13,8 @@ export type Store = {
 export const defaultPublicValues: PublicSchema = {
   url: 'https://play.newcp.net/',
   disableAds: false,
+  enableDiscord: false,
+  enableDiscordTracker: false,
 };
 
 const createPublicStore = () => {

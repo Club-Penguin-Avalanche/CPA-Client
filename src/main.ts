@@ -1,5 +1,6 @@
 import { app, BrowserWindow } from "electron";
 import { autoUpdater } from "electron-updater";
+import { startDiscordRPC } from "./discord";
 import loadFlashPlugin from "./flash-loader";
 import startMenu from "./menu";
 import createStore from "./store";
@@ -24,16 +25,24 @@ app.on('ready', async () => {
   mainWindow = await createWindow(store);
   
   startMenu(store, mainWindow);
+
+  startDiscordRPC(store, mainWindow);
   
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
 });
 
-app.on('window-all-closed', () => {
+app.on('window-all-closed', async () => {
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
+    const discordClient = store.private.get('discordState')?.client;
+
+    if (discordClient) {
+      await discordClient.destroy();
+    }
+
     app.quit();
     
     process.exit(0);

@@ -260,6 +260,11 @@
   dependencies:
     "@types/ms" "*"
 
+"@types/discord-rpc@^4.0.3":
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/@types/discord-rpc/-/discord-rpc-4.0.3.tgz#3ff5bf9d406841e3744575df0a9e967f52df1ccb"
+  integrity sha512-4Kh+8u1+OXRHD5OHET3zbBInDkx3cMLaj8Qif8JQbgHZjiru2IYf/WHhuYdzjgtJ/J0CuImOpvt98+Bhe/lr1g==
+
 "@types/electron-prompt@^1.6.1":
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/@types/electron-prompt/-/electron-prompt-1.6.1.tgz#301297e26e3ae4df2cb03b6120772f43309faf6e"

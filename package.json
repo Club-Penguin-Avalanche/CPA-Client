@@ -36,6 +36,7 @@
     }
   },
   "devDependencies": {
+    "@types/discord-rpc": "^4.0.3",
     "@types/electron-prompt": "^1.6.1",
     "@types/node": "^18.13.0",
     "@typescript-eslint/eslint-plugin": "^5.52.0",

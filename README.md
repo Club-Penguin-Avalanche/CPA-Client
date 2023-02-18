@@ -21,7 +21,9 @@ OBS: Mac Os installer not available for now.
 You can change the url of the CPPS and play in any other CPPS
 
 ![CPClient URL Setter menu](./readme/change_url_menu.png)
+<br>
 ![CPClient URL Setter confirmation](./readme/change_url_confirmation.png)
+<br>
 ![CPClient URL Setter input](./readme/change_url_input.png)
 
 Know CPPS available:
@@ -36,6 +38,7 @@ You can enable/disable an Ad Blocker when you want a performatic gameplay (comes
 OBS: The CPPS devs needs money to keep the game alive, only use this when you need a performatic gameplay.
 
 ![CPClient AdBlocker menu](./readme/adblock_menu.png)
+<br>
 ![CPClient AdBlocker confirmation](./readme/ad_block_confirmation.png)
 
 #### Discord Rich Presense (with location tracking)
@@ -46,9 +49,13 @@ The client also supports share your penguin location in the Discord RPC (also co
 OBS: The location tracker MAY work in an AS3 CPPS.
 
 ![CPClient Discord RPC menu](./readme/discord_menu.png)
+<br>
 ![CPClient Discord RPC confirmation](./readme/discord_confirmation.png)
+<br>
 ![CPClient Discord RPC tracking confirmation](./readme/discord_tracking_confirmation.png)
+<br>
 ![CPClient Discord RPC tracking unlogged](./readme/discord_tracking_unlogged.png)
+<br>
 ![CPClient Discord RPC tracking live](./readme/discord_tracking_live.png)
 
 ### License

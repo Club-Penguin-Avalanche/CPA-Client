@@ -1,10 +1,15 @@
 import { app, BrowserWindow } from "electron";
+import log from "electron-log";
 import { autoUpdater } from "electron-updater";
 import { startDiscordRPC } from "./discord";
 import loadFlashPlugin from "./flash-loader";
 import startMenu from "./menu";
 import createStore from "./store";
 import createWindow from "./window";
+
+log.initialize();
+
+console.log = log.log;
 
 const store = createStore();
 

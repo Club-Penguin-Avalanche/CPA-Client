@@ -2,15 +2,17 @@ import { BrowserWindow } from "electron";
 import { setLocationsInStore } from "../../discord";
 import { Store } from "../../store";
 import { CPLocation, CPLocationType } from "../../store/DiscordState";
-import { ROOMS_JSONP_NAME } from "../constants";
-import { getJsonFromParams } from "../requestHandler";
+import { getRoomsJsonFromParams } from "../requestHandler";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const parseAndUpdateRooms = async (store: Store, mainWindow: BrowserWindow, params: any) => {
-  const json = await getJsonFromParams(mainWindow, params, ROOMS_JSONP_NAME);
+  const result = await getRoomsJsonFromParams(mainWindow, params);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const rooms = Object.values(json) as any[];
+  const rooms = Object.values(result.roomsJson) as any[];
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const localizedRooms = result.localizedJson ? Object.values(result.localizedJson) as any[] : [];
 
   const cpLocations: CPLocation[] = [];
 
@@ -127,6 +129,17 @@ export const parseAndUpdateRooms = async (store: Store, mainWindow: BrowserWindo
     // The match of the 'igloo' room is 'igloo'.
     if (name.toLowerCase() === 'igloo') {
       match = 'igloo';
+    }
+
+    // Sets the localized name if has
+    if (localizedRooms) {
+      const localizedName = localizedRooms.filter(localizedRoom => {
+        return room.display_name === localizedRoom.display_name;
+      })[0].name;
+
+      if (localizedName) {
+        name = localizedName;
+      }
     }
 
     const cpLocation: CPLocation = {

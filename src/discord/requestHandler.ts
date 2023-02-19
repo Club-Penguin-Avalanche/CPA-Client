@@ -1,20 +1,31 @@
 import { BrowserWindow } from "electron";
 import { Store } from "../store";
-import { ROOMS_PATH, SWF_MIME_FILE } from "./constants";
+import { ROOMS_JSONP_NAME, ROOMS_PATH, SWF_MIME_FILE } from "./constants";
 import { parseAndUpdateLocation } from "./parsers/locationParser";
 import { parseAndUpdateRooms } from "./parsers/roomParser";
+import fetch from 'electron-fetch';
 
 const parseJSONP = (jsonp: string, name: string) => {
   const nameLength = name.length;
 
-  return JSON.parse(jsonp.slice(nameLength + 1, jsonp.length - 2));
+  const json = jsonp.slice(nameLength + 1, jsonp.length - 2);
+
+  return JSON.parse(json);
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const getJsonFromParams = async (mainWindow: BrowserWindow, params: any, jsonpName: string) => {
-  const response = await mainWindow.webContents.debugger.sendCommand('Network.getResponseBody', { requestId: params.requestId });
+type RoomsResponse = {
+  roomsJson: string,
+  localizedJson?: string,
+}
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const getRoomsJsonFromParams = async (mainWindow: BrowserWindow, params: any): Promise<RoomsResponse> => {
   let plainResponseBody;
+  let localizedResponseBody;
+
+  const url = params.response.url as string;
+
+  const response = await mainWindow.webContents.debugger.sendCommand('Network.getResponseBody', { requestId: params.requestId });
 
   if (response.base64Encoded) {
     plainResponseBody = Buffer.from(response.body, 'base64').toString('utf8');
@@ -22,7 +33,35 @@ export const getJsonFromParams = async (mainWindow: BrowserWindow, params: any, 
     plainResponseBody = response.body;
   }
 
-  return parseJSONP(plainResponseBody, jsonpName);
+  if (!url.includes('/en/')) {
+    localizedResponseBody = plainResponseBody;
+
+    // https://media1.cpbrasil.pw/play/en/web_service/game_configs/rooms.jsonp?v=1.3.64&callback=cp_rooms
+    // https://play.newcp.net//pt/web_service/game_configs/rooms.jsonp?v=1.3.63&callback=cp_rooms
+    
+    const webServiceIndex = url.indexOf('/web_service/');
+
+    const urlStart = url.substring(0, webServiceIndex);
+
+    const langIndex = urlStart.lastIndexOf('/');
+
+    const lang = urlStart.substring(langIndex + 1);
+
+    const enUrl = url.replace(lang, 'en');
+
+    const enResponse = await fetch(enUrl);
+
+    const enResponseBuffer = await enResponse.buffer();
+    
+    plainResponseBody = enResponseBuffer.toString();
+
+    
+  }
+
+  return {
+    roomsJson: parseJSONP(plainResponseBody, ROOMS_JSONP_NAME),
+    localizedJson: parseJSONP(localizedResponseBody, ROOMS_JSONP_NAME),
+  };
 };
 
 export const startRequestListener = (store: Store, mainWindow: BrowserWindow) => {

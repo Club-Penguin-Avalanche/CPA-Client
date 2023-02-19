@@ -3,4 +3,5 @@ export type PublicSchema = {
   disableAds: boolean;
   enableDiscord: boolean;
   enableDiscordTracker: boolean;
+  lastLanguage: string;
 }

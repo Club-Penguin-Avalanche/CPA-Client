@@ -4,6 +4,7 @@ import { ROOMS_JSONP_NAME, ROOMS_PATH, SWF_MIME_FILE } from "./constants";
 import { parseAndUpdateLocation } from "./parsers/locationParser";
 import { parseAndUpdateRooms } from "./parsers/roomParser";
 import fetch from 'electron-fetch';
+import { setLanguageInStore } from "./localization/localization";
 
 const parseJSONP = (jsonp: string, name: string) => {
   const nameLength = name.length;
@@ -19,7 +20,7 @@ type RoomsResponse = {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const getRoomsJsonFromParams = async (mainWindow: BrowserWindow, params: any): Promise<RoomsResponse> => {
+export const getRoomsJsonFromParams = async (store: Store, mainWindow: BrowserWindow, params: any): Promise<RoomsResponse> => {
   let plainResponseBody;
   let localizedResponseBody;
 
@@ -47,6 +48,8 @@ export const getRoomsJsonFromParams = async (mainWindow: BrowserWindow, params: 
 
     const lang = urlStart.substring(langIndex + 1);
 
+    setLanguageInStore(store, lang);
+
     const enUrl = url.replace(lang, 'en');
 
     const enResponse = await fetch(enUrl);
@@ -54,13 +57,11 @@ export const getRoomsJsonFromParams = async (mainWindow: BrowserWindow, params: 
     const enResponseBuffer = await enResponse.buffer();
     
     plainResponseBody = enResponseBuffer.toString();
-
-    
   }
 
   return {
     roomsJson: parseJSONP(plainResponseBody, ROOMS_JSONP_NAME),
-    localizedJson: parseJSONP(localizedResponseBody, ROOMS_JSONP_NAME),
+    localizedJson: localizedResponseBody ? parseJSONP(localizedResponseBody, ROOMS_JSONP_NAME) : undefined,
   };
 };
 

@@ -6,7 +6,7 @@ import { getRoomsJsonFromParams } from "../requestHandler";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const parseAndUpdateRooms = async (store: Store, mainWindow: BrowserWindow, params: any) => {
-  const result = await getRoomsJsonFromParams(mainWindow, params);
+  const result = await getRoomsJsonFromParams(store, mainWindow, params);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const rooms = Object.values(result.roomsJson) as any[];
@@ -135,7 +135,7 @@ export const parseAndUpdateRooms = async (store: Store, mainWindow: BrowserWindo
     if (localizedRooms) {
       const localizedName = localizedRooms.filter(localizedRoom => {
         return room.display_name === localizedRoom.display_name;
-      })[0].name;
+      })[0]?.name;
 
       if (localizedName) {
         name = localizedName;

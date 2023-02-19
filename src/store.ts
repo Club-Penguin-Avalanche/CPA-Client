@@ -15,6 +15,7 @@ export const defaultPublicValues: PublicSchema = {
   disableAds: false,
   enableDiscord: false,
   enableDiscordTracker: false,
+  lastLanguage: 'pt',
 };
 
 const createPublicStore = () => {

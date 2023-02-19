@@ -78,9 +78,9 @@ export const parseAndUpdateLocation = async (store: Store, params: any) => {
   state.currentLocation = location;
 
   if (!location) {
-    await setUnknownLocationStatus(state, match);
+    await setUnknownLocationStatus(store, state, match);
   } else {
-    await setLocationStatus(state, location);
+    await setLocationStatus(store, state, location);
   }
 
   setDiscordStateInStore(store, state);

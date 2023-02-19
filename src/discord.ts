@@ -1,7 +1,8 @@
 import { Client, register } from "discord-rpc";
 import { BrowserWindow, dialog } from "electron";
 import { EOL } from "os";
-import { CPPS_MAP, DISCORD_RPC_CLIENT_APP_ID, LARGE_IMAGE_KEY, UNLOGGED, WADDLING } from "./discord/constants";
+import { CPPS_MAP, DISCORD_RPC_CLIENT_APP_ID, LARGE_IMAGE_KEY } from "./discord/constants";
+import { getLocalizedPlaying, getLocalizedTalkingWith, getLocalizedUnlogged, getLocalizedVisiting, getLocalizedWaddling, getLocalizedWaddlingAt } from "./discord/localization/localization";
 import { startRequestListener } from "./discord/requestHandler";
 import { Store } from "./store";
 import { CPLocation, CPLocationType, DiscordState } from "./store/DiscordState";
@@ -39,50 +40,54 @@ export const setLocationsInStore = (store: Store, locations: CPLocation[]) => {
   setDiscordStateInStore(store, state);
 };
 
-export const setUnloggedStatus = (state: DiscordState) => {
+export const setUnloggedStatus = (store: Store) => {
+  const state = getDiscordStateFromStore(store);
+
   return state.client.setActivity({
     details: state.gameName,
-    state: UNLOGGED,
+    state: getLocalizedUnlogged(store),
     startTimestamp: state.startTimestamp,
     largeImageKey: LARGE_IMAGE_KEY,
   });
 };
 
-const setWaddlingStatus = (state: DiscordState) => {
+const setWaddlingStatus = (store: Store) => {
+  const state = getDiscordStateFromStore(store);
+
   return state.client.setActivity({
     details: state.gameName,
-    state: WADDLING,
+    state: getLocalizedWaddling(store),
     startTimestamp: state.startTimestamp,
     largeImageKey: LARGE_IMAGE_KEY,
   });
 };
 
-export const setUnknownLocationStatus = (state: DiscordState, match: string) => {
+export const setUnknownLocationStatus = (store: Store, state: DiscordState, match: string) => {
   const result = match.replace(/([A-Z])/g, " $1");
   const finalResult = result.charAt(0).toUpperCase() + result.slice(1);
 
   return state.client.setActivity({
     details: state.gameName,
-    state: `Waddling at ${finalResult}`,
+    state: `${getLocalizedWaddlingAt(store)} ${finalResult}`,
     startTimestamp: state.startTimestamp,
     largeImageKey: LARGE_IMAGE_KEY,
   });
 };
 
-export const setLocationStatus = (state: DiscordState, location: CPLocation) => {
+export const setLocationStatus = (store: Store, state: DiscordState, location: CPLocation) => {
   let msgPrefix: string;
 
   if (location.name.toLowerCase().includes('sensei')) {
-    msgPrefix = 'Talking with ';
+    msgPrefix = getLocalizedTalkingWith(store);
   } else if (location.type === CPLocationType.Game) {
-    msgPrefix = 'Playing ';
+    msgPrefix = getLocalizedPlaying(store);
   } else if (location.name.toLowerCase().includes('igloo')) {
-    msgPrefix = 'Visiting an ';
+    msgPrefix = getLocalizedVisiting(store);
   } else {
-    msgPrefix = 'Waddling at ';
+    msgPrefix = getLocalizedWaddlingAt(store);
   }
 
-  const locationMsg = msgPrefix + location.name;
+  const locationMsg = msgPrefix + ' ' + location.name;
 
   return state.client.setActivity({
     details: state.gameName,
@@ -123,7 +128,7 @@ const registerWindowReload = (store: Store, mainWindow: BrowserWindow) => {
     // In case URL changed
     state.gameName = getGameName(store);
 
-    setUnloggedStatus(state);
+    setUnloggedStatus(store);
 
     setDiscordStateInStore(store, state);
   });
@@ -155,7 +160,7 @@ export const startDiscordRPC = (store: Store, mainWindow: BrowserWindow) => {
   client.on('ready', () => { 
     client.setActivity({
       details: gameName,
-      state: rpcTrackingEnabled ? UNLOGGED : WADDLING,
+      state: rpcTrackingEnabled ? getLocalizedUnlogged(store) : getLocalizedWaddling(store),
       startTimestamp: startTimestamp,
       largeImageKey: LARGE_IMAGE_KEY,
     });
@@ -247,12 +252,12 @@ export const enableOrDisableDiscordRPCLocationTracking = async (store: Store, ma
   updateDiscordRPCTrackingEnabledInStore(store);
 
   if (!getDiscordRPCTrackingEnabledFromStore(store)) {
-    setWaddlingStatus(getDiscordStateFromStore(store));
+    setWaddlingStatus(store);
 
     return;
   }
 
-  setUnloggedStatus(getDiscordStateFromStore(store));
+  setUnloggedStatus(store);
 
   mainWindow.reload();
 };

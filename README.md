@@ -48,6 +48,8 @@ The client also supports share your penguin location in the Discord RPC (also co
 
 OBS: The location tracker MAY work in an AS3 CPPS.
 
+The location tracker also supports the CPPS localization but don't support RPC phrases localization, the supported languages are: (EN/PT).
+
 ![CPClient Discord RPC menu](./readme/discord_menu.png)
 <br>
 ![CPClient Discord RPC confirmation](./readme/discord_confirmation.png)

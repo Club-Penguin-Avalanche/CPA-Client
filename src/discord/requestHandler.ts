@@ -57,6 +57,8 @@ export const getRoomsJsonFromParams = async (store: Store, mainWindow: BrowserWi
     const enResponseBuffer = await enResponse.buffer();
     
     plainResponseBody = enResponseBuffer.toString();
+  } else {
+    setLanguageInStore(store, 'en');
   }
 
   return {

@@ -5,6 +5,7 @@ import openDevTools from "./dev-tools";
 import { enableOrDisableDiscordRPC, enableOrDisableDiscordRPCLocationTracking } from "./discord";
 import { Store } from "./store";
 import changeClubPenguinUrl from "./urlchanger";
+import { toggleFullScreen } from "./window";
 
 const createMenuTemplate = (store: Store, mainWindow: BrowserWindow): MenuItemConstructorOptions[] => {
   const options = {
@@ -33,6 +34,11 @@ const createMenuTemplate = (store: Store, mainWindow: BrowserWindow): MenuItemCo
         label: 'Reload without cache',
         accelerator: 'CommandOrControl+R',
         click: () => { mainWindow.webContents.reloadIgnoringCache(); }
+      },
+      {
+        label: 'Toggle Fullscreen',
+        accelerator: 'F11',
+        click: () => { toggleFullScreen(store, mainWindow); }
       }
     ]
   };

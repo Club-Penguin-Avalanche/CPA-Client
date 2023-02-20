@@ -4,4 +4,5 @@ import { DiscordState } from "./DiscordState";
 export type PrivateSchema = {
   blocker?: ElectronBlocker;
   discordState?: DiscordState;
+  fullScreen: boolean;
 }

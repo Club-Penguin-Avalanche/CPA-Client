@@ -4,6 +4,15 @@ import { createAdblocker } from "./adblocker";
 import { Store } from "./store";
 import { getUrlFromStore } from "./urlchanger";
 
+
+export const toggleFullScreen = (store: Store, mainWindow: BrowserWindow) => {
+  const fullScreen = !store.private.get('fullScreen') ?? false;
+
+  store.private.set('fullScreen', fullScreen);
+
+  mainWindow.setFullScreen(fullScreen);
+};
+
 const createWindow = async (store: Store) => {
   const mainWindow = new BrowserWindow({
     width: 1280,

@@ -13,6 +13,7 @@ OBS: macOS installer not available for now.
 - Clear cache option
 - Reload and Reload Without Cache
 - Can set FullScreen
+- Can change the zoom with `CmdOrControl +`, `CmdOrControl -` and `CmdOrContrl + 0`
 - Can open Chromium Dev Tools
 - Optional AD Blocker for performance gameplay (comes disabled)
 - Optional Discord Rich Presence (comes disabled)

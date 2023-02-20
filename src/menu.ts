@@ -8,7 +8,7 @@ import changeClubPenguinUrl from "./urlchanger";
 import { toggleFullScreen } from "./window";
 
 const createMenuTemplate = (store: Store, mainWindow: BrowserWindow): MenuItemConstructorOptions[] => {
-  const options = {
+  const options: MenuItemConstructorOptions = {
     id: '1',
     label: 'Options',
     submenu: [
@@ -28,7 +28,7 @@ const createMenuTemplate = (store: Store, mainWindow: BrowserWindow): MenuItemCo
       {
         label: 'Reload',
         accelerator: 'F5',
-        click: () => { mainWindow.reload(); }
+        role: 'reload',
       },
       {
         label: 'Reload without cache',
@@ -39,11 +39,27 @@ const createMenuTemplate = (store: Store, mainWindow: BrowserWindow): MenuItemCo
         label: 'Toggle Fullscreen',
         accelerator: 'F11',
         click: () => { toggleFullScreen(store, mainWindow); }
-      }
+      },
+      { 
+        label: 'Zoom In',
+        role: 'zoomIn',
+        accelerator: 'CommandOrControl+=',
+      },
+      {
+        label: 'Zoom Out',
+        role: 'zoomOut',
+        accelerator: 'CommandOrControl+-',
+      },
+
+      {
+        label: 'Reset Zoom',
+        role: 'resetZoom',
+        accelerator: 'CommandOrControl+0',
+      },
     ]
   };
 
-  const adblock = {
+  const adblock: MenuItemConstructorOptions = {
     id: '2',
     label: 'Adblock',
     submenu: [
@@ -54,7 +70,7 @@ const createMenuTemplate = (store: Store, mainWindow: BrowserWindow): MenuItemCo
     ]
   };
 
-  const discord = {
+  const discord: MenuItemConstructorOptions = {
     id: '3',
     label: 'Discord',
     submenu: [

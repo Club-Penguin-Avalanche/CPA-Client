@@ -24,4 +24,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: artifacts
-        path: ./dist/
+        path: ./dist/CPClient-1.0.0.dmg

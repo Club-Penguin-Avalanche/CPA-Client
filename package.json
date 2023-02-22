@@ -28,9 +28,6 @@
     "win": {
       "publish": "github"
     },
-    "mac": {
-      "icon": "./assets/icon.icns"
-    },
     "linux": {
       "publish": "github",
       "target": "deb",

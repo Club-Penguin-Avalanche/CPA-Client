@@ -28,6 +28,9 @@
     "win": {
       "publish": "github"
     },
+    "mac": {
+      "icon": "./assets/icon.icns"
+    },
     "linux": {
       "publish": "github",
       "target": "deb",
@@ -42,7 +45,7 @@
     "@typescript-eslint/parser": "^5.52.0",
     "copyfiles": "^2.4.1",
     "electron": "^11.3.0",
-    "electron-builder": "^22.2.0",
+    "electron-builder": "23.0.2",
     "eslint": "^8.34.0",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "rimraf": "^4.1.2",

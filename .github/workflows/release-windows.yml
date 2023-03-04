@@ -19,7 +19,7 @@ jobs:
     - name: Build Typescript
       run: yarn build-tsc
 
-    - name: Build for MacOS
+    - name: Build for Windows
       run: yarn build-win
       
     - name: Upload Artifacts

@@ -26,7 +26,7 @@ jobs:
       run: yarn build-linux
 
     - name: Rename Deb File
-      run: mv *.deb cpavalancheclient_${{ env.version }}.deb
+      run: mv ./dist/*.deb ./dist/cpavalancheclient_${{ env.version }}.deb
       
     - name: Upload Artifacts
       uses: actions/upload-artifact@v3

@@ -8,6 +8,7 @@ export const SWF_IGLOO_ROOM_PATH = 'igloo.swf';
 export const DISCORD_RPC_CLIENT_APP_ID = '1076298709073145907';
 export const LARGE_IMAGE_KEY = 'main-logo';
 export const CPPS_MAP = new Map([
+  ['cpavalanche.net', 'Club Penguin Avalanche'],
   ['newcp.net', 'New Club Penguin'],
   ['cpbrasil.pw', 'Club Penguin Brasil'],
   ['supercpps.com', 'Super Club Penguin'],

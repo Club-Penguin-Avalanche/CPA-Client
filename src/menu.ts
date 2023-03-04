@@ -10,49 +10,49 @@ import { toggleFullScreen } from "./window";
 const createMenuTemplate = (store: Store, mainWindow: BrowserWindow): MenuItemConstructorOptions[] => {
   const options: MenuItemConstructorOptions = {
     id: '1',
-    label: 'Options',
+    label: 'Opções',
     submenu: [
       {
-        label: 'Clear cache',
+        label: 'Limpar cache',
         click: () => { clearCache(mainWindow); }
       },
       {
-        label: 'Open dev tools',
+        label: 'Abrir dev tools',
         accelerator: 'CommandOrControl+Shift+I',
         click: () => { openDevTools(mainWindow); }
       },
       {
-        label: 'Change Club Penguin URL',
+        label: 'Mudar a URL do Club Penguin',
         click: () => { changeClubPenguinUrl(store, mainWindow); }
       },
       {
-        label: 'Reload',
+        label: 'Recarregar',
         accelerator: 'F5',
         role: 'reload',
       },
       {
-        label: 'Reload without cache',
+        label: 'Recarregar sem Cache',
         accelerator: 'CommandOrControl+R',
         click: () => { mainWindow.webContents.reloadIgnoringCache(); }
       },
       {
-        label: 'Toggle Fullscreen',
+        label: 'Alternar Tela Cheia',
         accelerator: 'F11',
         click: () => { toggleFullScreen(store, mainWindow); }
       },
       { 
-        label: 'Zoom In',
+        label: 'Aumentar o Zoom',
         role: 'zoomIn',
         accelerator: 'CommandOrControl+=',
       },
       {
-        label: 'Zoom Out',
+        label: 'Diminuir o Zoom',
         role: 'zoomOut',
         accelerator: 'CommandOrControl+-',
       },
 
       {
-        label: 'Reset Zoom',
+        label: 'Resetar o Zoom',
         role: 'resetZoom',
         accelerator: 'CommandOrControl+0',
       },
@@ -64,7 +64,7 @@ const createMenuTemplate = (store: Store, mainWindow: BrowserWindow): MenuItemCo
     label: 'Adblock',
     submenu: [
       {
-        label: 'Enable/Disable Adblock',
+        label: 'Ativar/Desativar Adblock',
         click: () => { enableOrDisableAdblocker(store, mainWindow); }
       }
     ]
@@ -75,11 +75,11 @@ const createMenuTemplate = (store: Store, mainWindow: BrowserWindow): MenuItemCo
     label: 'Discord',
     submenu: [
       {
-        label: 'Enable/Disable Discord Rich Presence',
+        label: 'Ativar/Desativar Discord Rich Presence',
         click: () => { enableOrDisableDiscordRPC(store, mainWindow); }
       },
       {
-        label: 'Enable/Disable Discord Rich Presence location tracking',
+        label: 'Ativar/Desativar rastreamente de sala no Discord Rich Presence',
         click: () => { enableOrDisableDiscordRPCLocationTracking(store, mainWindow); }
       }
     ]

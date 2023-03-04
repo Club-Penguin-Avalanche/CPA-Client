@@ -17,7 +17,7 @@ const createWindow = async (store: Store) => {
   const mainWindow = new BrowserWindow({
     width: 1280,
     height: 720,
-    title: "Starting...",
+    title: "Iniciando...",
     icon: path.join(__dirname, 'assets/favicon.ico'),
     webPreferences: {
       plugins: true

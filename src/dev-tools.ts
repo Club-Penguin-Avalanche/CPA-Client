@@ -2,9 +2,9 @@ import { BrowserWindow, dialog } from "electron";
 
 const openDevTools = async (mainWindow: BrowserWindow) => {
   const confirmationResult = await dialog.showMessageBox(mainWindow, {
-    buttons: ['Yes', 'No', 'Cancel'],
-    title: 'Do you really want to open the Dev Tools?',
-    message: `The Dev Tools can contains sensitive information about your game session.`,
+    buttons: ['Sim', 'Não', 'Cancelar'],
+    title: 'Você realmente deseja abrir o Dev Tools?',
+    message: `O Dev Tools pode conter informações sensíveis sobre sua sessão do jogo.`,
   });
 
   if (confirmationResult.response !== 0) {

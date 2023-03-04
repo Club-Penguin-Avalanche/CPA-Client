@@ -11,7 +11,7 @@ export type Store = {
 }
 
 export const defaultPublicValues: PublicSchema = {
-  url: 'https://play.newcp.net/',
+  url: 'http://play.cpavalanche.net/',
   disableAds: false,
   enableDiscord: false,
   enableDiscordTracker: false,

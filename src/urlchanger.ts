@@ -14,9 +14,9 @@ const changeClubPenguinUrl = async (store: Store, mainWindow: BrowserWindow) => 
   const url = getUrlFromStore(store);
 
   const confirmationResult = await dialog.showMessageBox(mainWindow, {
-    buttons: ['Yes', 'No', 'Cancel'],
-    title: 'Do you really want to change the game URL?',
-    message: `The current URL is: '${url}', after setting the url the page will reload.`,
+    buttons: ['Sim', 'Não', 'Cancelar'],
+    title: 'Você realmente deseja alterar a URL do jogo?',
+    message: `A URL atual é: '${url}', após alterar essa URL a página irá reiniciar.`,
   });
 
   if (confirmationResult.response !== 0) {
@@ -24,7 +24,7 @@ const changeClubPenguinUrl = async (store: Store, mainWindow: BrowserWindow) => 
   }
 
   const result = await prompt({
-    title: 'Set the Club Penguin URL',
+    title: 'Altere a URL do Club Penguin',
     label: 'URL:',
     value: url,
     inputAttrs: {

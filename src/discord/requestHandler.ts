@@ -6,7 +6,7 @@ import { parseAndUpdateRooms } from "./parsers/roomParser";
 import fetch from 'electron-fetch';
 import { setLanguageInStore } from "./localization/localization";
 
-const parseJSONP = (jsonp: string, name: string) => {
+export const parseJSONP = (jsonp: string, name: string) => {
   const nameLength = name.length;
 
   const json = jsonp.slice(nameLength + 1, jsonp.length - 2);
@@ -14,7 +14,7 @@ const parseJSONP = (jsonp: string, name: string) => {
   return JSON.parse(json);
 };
 
-type RoomsResponse = {
+export type RoomsResponse = {
   roomsJson: string,
   localizedJson?: string,
 }

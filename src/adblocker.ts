@@ -43,9 +43,9 @@ export const enableOrDisableAdblocker = async (store: Store, mainWindow: Browser
 
   if (!checkIfAdblockerIsEnabled(store)) {
     const confirmationResult = await dialog.showMessageBox(mainWindow, {
-      buttons: ['Yes', 'No', 'Cancel'],
-      title: 'Do you really want to disable ads?',
-      message: 'The game devs needs money to keep the game alive.',
+      buttons: ['Sim', 'Não', 'Cancelar'],
+      title: 'Você realmente deseja desativar os ads?',
+      message: 'Os desenvolvedores do jogo dependem de dinheiro para o manter vivo.',
     });
     
     if (confirmationResult.response !== 0) {
@@ -60,9 +60,9 @@ export const enableOrDisableAdblocker = async (store: Store, mainWindow: Browser
   updateAdblockerIsEnabled(store);
 
   const reloadResult = await dialog.showMessageBox(mainWindow, {
-    buttons: ['Yes', 'No', 'Cancel'],
-    title: 'Reload the page?',
-    message: 'This change needs to reload the page to be effective.',
+    buttons: ['Sim', 'Não', 'Cancelar'],
+    title: 'Recarregar a página?',
+    message: 'Essa alteração precisa que a página recarregue para ser efetiva.',
   });
 
   if (reloadResult.response === 0) {

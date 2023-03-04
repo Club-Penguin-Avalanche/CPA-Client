@@ -2,12 +2,9 @@ import { BrowserWindow } from "electron";
 import { setLocationsInStore } from "../../discord";
 import { Store } from "../../store";
 import { CPLocation, CPLocationType } from "../../store/DiscordState";
-import { getRoomsJsonFromParams } from "../requestHandler";
+import { getRoomsJsonFromParams, RoomsResponse } from "../requestHandler";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const parseAndUpdateRooms = async (store: Store, mainWindow: BrowserWindow, params: any) => {
-  const result = await getRoomsJsonFromParams(store, mainWindow, params);
-
+export const updateRooms = (store: Store, result: RoomsResponse) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const rooms = Object.values(result.roomsJson) as any[];
 
@@ -154,4 +151,11 @@ export const parseAndUpdateRooms = async (store: Store, mainWindow: BrowserWindo
   }
 
   setLocationsInStore(store, cpLocations);
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const parseAndUpdateRooms = async (store: Store, mainWindow: BrowserWindow, params: any) => {
+  const result = await getRoomsJsonFromParams(store, mainWindow, params);
+
+  updateRooms(store, result);
 };

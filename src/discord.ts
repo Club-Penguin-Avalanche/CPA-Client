@@ -1,12 +1,13 @@
 import { Client, register } from "discord-rpc";
 import { BrowserWindow, dialog } from "electron";
-import { EOL } from "os";
-import { CPPS_MAP, DISCORD_RPC_CLIENT_APP_ID, LARGE_IMAGE_KEY } from "./discord/constants";
+import { CPPS_MAP, DISCORD_RPC_CLIENT_APP_ID, LARGE_IMAGE_KEY, ROOMS_JSONP_NAME } from "./discord/constants";
 import { getLocalizedPlaying, getLocalizedTalkingWith, getLocalizedUnlogged, getLocalizedVisiting, getLocalizedWaddling, getLocalizedWaddlingAt } from "./discord/localization/localization";
-import { startRequestListener } from "./discord/requestHandler";
+import { parseJSONP, RoomsResponse, startRequestListener } from "./discord/requestHandler";
 import { Store } from "./store";
 import { CPLocation, CPLocationType, DiscordState } from "./store/DiscordState";
 import { getUrlFromStore } from "./urlchanger";
+import { promises as fs } from 'fs';
+import { updateRooms } from "./discord/parsers/roomParser";
 
 const getDiscordRPCEnabledFromStore = (store: Store) => {
   return store.public.get('enableDiscord');
@@ -97,14 +98,14 @@ export const setLocationStatus = (store: Store, state: DiscordState, location: C
   });
 };
 
-const getGameName = (store: Store) =>  {
+const getGameName = (store: Store, mainWindow: BrowserWindow) =>  {
   const url = new URL(getUrlFromStore(store));
 
   const hostName = url.hostname.indexOf('.') === url.hostname.lastIndexOf('.')
     ? url.hostname
     : url.hostname.split('.').slice(-2).join('.');
 
-  return CPPS_MAP.get(hostName) ?? 'Club Penguin';
+  return CPPS_MAP.get(hostName) ?? mainWindow.webContents.getTitle() ?? 'Club Penguin';
 };
 
 const registerWindowReload = (store: Store, mainWindow: BrowserWindow) => {
@@ -126,7 +127,7 @@ const registerWindowReload = (store: Store, mainWindow: BrowserWindow) => {
     const state = getDiscordStateFromStore(store);
 
     // In case URL changed
-    state.gameName = getGameName(store);
+    state.gameName = getGameName(store, mainWindow);
 
     setUnloggedStatus(store);
 
@@ -139,7 +140,7 @@ export const startDiscordRPC = (store: Store, mainWindow: BrowserWindow) => {
     return;
   }
 
-  const gameName = getGameName(store);
+  const gameName = getGameName(store, mainWindow);
   const startTimestamp = new Date();
 
   register(DISCORD_RPC_CLIENT_APP_ID);
@@ -177,6 +178,7 @@ export const startDiscordRPC = (store: Store, mainWindow: BrowserWindow) => {
   registerWindowReload(store, mainWindow);
 
   startRequestListener(store, mainWindow);
+  setDefaultRooms(store);
 };
 
 export const stopDiscordRPC = (store: Store) => {
@@ -195,9 +197,9 @@ export const enableOrDisableDiscordRPC = async (store: Store, mainWindow: Browse
 
   if (!getDiscordRPCEnabledFromStore(store)) {
     const confirmationEnableResult = await dialog.showMessageBox(mainWindow, {
-      buttons: ['Yes', 'No', 'Cancel'],
-      title: 'Do you really want to enable Discord Reach Presence?',
-      message: `This change needs to reload the page to be effective (only if location tracking enabled).`,
+      buttons: ['Sim', 'Não', 'Cancelar'],
+      title: 'Você deseja ativar o Discord Reach Presence?',
+      message: `Essa alteração precisa recarregar a página para ser efetiva (somente se o rastreamento de sala estivar ativo).`,
     });
 
     if (confirmationEnableResult.response !== 0) {
@@ -220,9 +222,9 @@ export const enableOrDisableDiscordRPC = async (store: Store, mainWindow: Browse
   }
 
   const confirmationTrackingEnableResult = await dialog.showMessageBox(mainWindow, {
-    buttons: ['Yes', 'No', 'Cancel'],
-    title: 'Do you want to enable Discord Reach Presence location tracking?',
-    message: `Your peguin location will be exposed on discord.`,
+    buttons: ['Sim', 'Não', 'Cancelar'],
+    title: 'Você deseja ativar o rastreamento de sala para o Discord Reach Presence?',
+    message: `A localização do seu pinguim será exposta no discord.`,
   });
 
   if (confirmationTrackingEnableResult.response !== 0) {
@@ -239,9 +241,9 @@ export const enableOrDisableDiscordRPC = async (store: Store, mainWindow: Browse
 export const enableOrDisableDiscordRPCLocationTracking = async (store: Store, mainWindow: BrowserWindow) => {
   if (!getDiscordRPCTrackingEnabledFromStore(store)) {
     const confirmationTrackingEnableResult = await dialog.showMessageBox(mainWindow, {
-      buttons: ['Yes', 'No', 'Cancel'],
-      title: 'Do you want to enable Discord Reach Presence location tracking?',
-      message: `Your peguin location will be exposed on discord.${EOL}`,
+      buttons: ['Sim', 'Não', 'Cancelar'],
+      title: 'Você deseja ativar o rastreamento de sala para o Discord Reach Presence?',
+      message: `A localização do seu pinguim será exposta no discord.`,
     });
 
     if (confirmationTrackingEnableResult.response !== 0) {
@@ -260,4 +262,19 @@ export const enableOrDisableDiscordRPCLocationTracking = async (store: Store, ma
   setUnloggedStatus(store);
 
   mainWindow.reload();
+};
+
+const setDefaultRooms = async (store: Store) => {
+  const enRoomsBuff = await fs.readFile('assets/default/rooms-en.jsonp');
+  const ptRoomsBuff = await fs.readFile('assets/default/rooms-pt.jsonp');
+
+  const enRooms = enRoomsBuff.toString();
+  const ptRooms = ptRoomsBuff.toString();
+  
+  const result: RoomsResponse = {
+    roomsJson: parseJSONP(enRooms, ROOMS_JSONP_NAME),
+    localizedJson: parseJSONP(ptRooms, ROOMS_JSONP_NAME),
+  };
+
+  updateRooms(store, result);
 };

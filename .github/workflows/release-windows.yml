@@ -1,4 +1,4 @@
-name: "Release-Deploy"
+name: "Release-Windows"
 on:
   release:
     types: ["published"]
@@ -33,7 +33,7 @@ jobs:
       with:
         allowUpdates: true
         artifactErrorsFailBuild: true
-        artifacts: "dist/*"
+        artifacts: "dist/*.exe"
         token: ${{ secrets.GITHUB_TOKEN }}
         omitBodyDuringUpdate: true
         omitNameDuringUpdate: true

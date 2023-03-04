@@ -1,4 +1,4 @@
-name: "Release-Deploy"
+name: "Release-Linux"
 on:
   release:
     types: ["published"]
@@ -41,7 +41,7 @@ jobs:
       with:
         allowUpdates: true
         artifactErrorsFailBuild: true
-        artifacts: "dist/*"
+        artifacts: "dist/*.deb,dist/*.AppImage"
         token: ${{ secrets.GITHUB_TOKEN }}
         omitBodyDuringUpdate: true
         omitNameDuringUpdate: true

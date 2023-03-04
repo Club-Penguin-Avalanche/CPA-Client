@@ -1,7 +1,7 @@
 {
-  "name": "cpclient",
+  "name": "cpavalancheclient",
   "version": "1.0.0",
-  "description": "CP Client",
+  "description": "CPAvalanche Client",
   "main": "./compiled/main.js",
   "scripts": {
     "clean": "rimraf compiled/",
@@ -22,8 +22,8 @@
   "license": "MIT",
   "build": {
     "electronDist": "node_modules/electron/dist",
-    "appId": "com.clubpenguin.client",
-    "productName": "CPClient",
+    "appId": "com.clubpenguin.avalanche.client",
+    "productName": "CPAvalanche Client",
     "asar": "false",
     "win": {
       "publish": "github"

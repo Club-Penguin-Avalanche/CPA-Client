@@ -15,12 +15,12 @@ OBS: Executável para MacOS pode não funcionar no momento.
 - Modo tela cheia.
 - É possível alterar o Zoom com `CmdOrControl +`, `CmdOrControl -` e `CmdOrContrl + 0`.
 - DevTools.
-- ADBlocker (vem desabilitado - O CPA NÃO É MONETIZADO).
+- ADBlocker (vem desabilitado - **O CPA NÃO É MONETIZADO**).
 - Discord Rich Presence (vem desabilitado).
 - Rastreamento de sala no Discord Rich Presence (vem desabilitado).
 
-#### URL Setter
-You can change the url of the CPPS and play in any other CPPS
+#### Alterador de URL
+Você também tem a opção de trocar a URL do jogo caso queira.
 
 ![CPClient URL Setter menu](./readme/change_url_menu.png)
 <br>
@@ -30,7 +30,8 @@ You can change the url of the CPPS and play in any other CPPS
 
 #### Ad Blocker
 É possível habilitar/desabilitar o Ad Blocker para obter uma jogabilidade mais fluída. 
-Esta função é irrelevante no __Club Penguin Avalanche__, pois este não possui ADs.
+
+Essa função é irrelevante no __Club Penguin Avalanche__, pois este não possui ADs.
 
 ![CPClient AdBlocker menu](./readme/adblock_menu.png)
 <br>

@@ -13,11 +13,11 @@ const createMenuTemplate = (store: Store, mainWindow: BrowserWindow): MenuItemCo
     label: 'Opções',
     submenu: [
       {
-        label: 'Limpar cache',
+        label: 'Limpar Cache',
         click: () => { clearCache(mainWindow); }
       },
       {
-        label: 'Abrir dev tools',
+        label: 'Abrir Dev Tools',
         accelerator: 'CommandOrControl+Shift+I',
         click: () => { openDevTools(mainWindow); }
       },
@@ -31,7 +31,7 @@ const createMenuTemplate = (store: Store, mainWindow: BrowserWindow): MenuItemCo
         role: 'reload',
       },
       {
-        label: 'Recarregar sem Cache',
+        label: 'Recarregar Sem Cache',
         accelerator: 'CommandOrControl+R',
         click: () => { mainWindow.webContents.reloadIgnoringCache(); }
       },

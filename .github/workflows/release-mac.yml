@@ -1,10 +1,7 @@
-name: Build-Mac
-
+name: "Release-Deploy"
 on:
-  push:
-    branches:
-      - "**"
-  workflow_call:
+  release:
+    types: ["published"]
 
 jobs:
   build:
@@ -12,16 +9,31 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+
     - name: Install Node.js, NPM and Yarn
       uses: actions/setup-node@v3
+
     - name: Restore dependencies
       run: yarn install
+
     - name: Build Typescript
       run: yarn build-tsc
+
     - name: Build for MacOS
       run: yarn build-mac
+      
     - name: Upload Artifacts
       uses: actions/upload-artifact@v3
       with:
         name: artifacts
-        path: ./dist/CPClient-1.0.0-ia32.dmg
+        path: ./dist/*.dmg
+
+    - name: "Upload Artifacts to Release"
+      uses: "ncipollo/release-action@v1"
+      with:
+        allowUpdates: true
+        artifactErrorsFailBuild: true
+        artifacts: "artifacts/*"
+        token: ${{ secrets.GITHUB_TOKEN }}
+        omitBodyDuringUpdate: true
+        omitNameDuringUpdate: true

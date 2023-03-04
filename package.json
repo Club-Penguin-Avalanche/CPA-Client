@@ -10,14 +10,14 @@
     "start": "yarn build-tsc && electron ./compiled/main.js",
     "lint": "eslint -c .eslintrc --ext .ts ./src",
     "build-win": "electron-builder build --win --publish never",
-    "build-mac": "electron-builder build --mac --ia32 --publish never",
-    "build-linux": "electron-builder build --linux --ia32 --x64 --publish never --x64"
+    "build-mac": "electron-builder build --mac --publish never",
+    "build-linux": "electron-builder build --linux --x64 --publish never"
   },
   "bugs": {
-    "url": "https://github.com/renanrcp/CPClient/issues"
+    "url": "https://github.com/Club-Penguin-Avalanche/CPA-Client/issues"
   },
-  "homepage": "https://github.com/renanrcp/CPClient/#readme",
-  "repository": "https://github.com/renanrcp/CPClient",
+  "homepage": "https://github.com/Club-Penguin-Avalanche/CPA-Client/#readme",
+  "repository": "https://github.com/Club-Penguin-Avalanche/CPA-Client",
   "author": "renanrcp",
   "license": "MIT",
   "build": {
@@ -33,8 +33,12 @@
     },
     "linux": {
       "publish": "github",
-      "target": "deb",
-      "maintainer": "renanrcp"
+      "target": [
+        "deb",
+        "AppImage"
+      ],
+      "maintainer": "renanrcp",
+      "icon": "./assets/icon.png"
     }
   },
   "devDependencies": {

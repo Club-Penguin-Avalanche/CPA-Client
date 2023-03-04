@@ -105,7 +105,18 @@ const getGameName = (store: Store, mainWindow: BrowserWindow) =>  {
     ? url.hostname
     : url.hostname.split('.').slice(-2).join('.');
 
-  return CPPS_MAP.get(hostName) ?? mainWindow.webContents.getTitle() ?? 'Club Penguin';
+
+  let gameName = CPPS_MAP.get(hostName);
+
+  if (!gameName) {
+    gameName = mainWindow.webContents.getTitle();
+  }
+
+  if (!gameName) {
+    gameName = 'Club Penguin';
+  }
+
+  return gameName;
 };
 
 const registerWindowReload = (store: Store, mainWindow: BrowserWindow) => {
@@ -141,6 +152,7 @@ export const startDiscordRPC = (store: Store, mainWindow: BrowserWindow) => {
   }
 
   const gameName = getGameName(store, mainWindow);
+
   const startTimestamp = new Date();
 
   register(DISCORD_RPC_CLIENT_APP_ID);

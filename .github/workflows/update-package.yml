@@ -22,7 +22,7 @@ jobs:
     - name: Commit Release Changes
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        branch: "main"
+        branch: "master"
         commit_message: "Version ${{ env.version }} [deploy-skip]"
         commit_user_name: "CPA-Client"
 

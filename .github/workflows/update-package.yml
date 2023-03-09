@@ -9,6 +9,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        ref: "main"
+        ssh-key: ${{ secrets.DEPLOY_KEY }}
 
     - name: Make Release Changes
       uses: jaywcjlove/github-action-package@main

@@ -18,11 +18,17 @@ const createWindow = async (store: Store) => {
     width: 1280,
     height: 720,
     title: "Iniciando...",
-    icon: path.join(__dirname, 'assets/favicon.ico'),
     webPreferences: {
       plugins: true
     }
   });
+
+  if (process.platform === 'linux') {
+    mainWindow.setIcon(path.join(__dirname, 'assets/icon.png'));
+  } else {
+    mainWindow.setIcon(path.join(__dirname, 'assets/favicon.ico'));
+  }
+  
 
   mainWindow.setMenu(null);
   mainWindow.maximize();

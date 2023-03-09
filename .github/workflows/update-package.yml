@@ -14,10 +14,13 @@ jobs:
         ref: "master"
         ssh-key: ${{ secrets.DEPLOY_KEY }}
 
-    - name: Make Release Changes
+    - name: Make Release Changes Version
+      run: . .github/release-changes.sh "${{ github.event.release.tag_name }}"
+
+    - name: Make Release Changes Package
       uses: jaywcjlove/github-action-package@main
       with:
-        version: ${{ github.event.release.tag_name }}
+        version: ${{ env.version }}
 
     - name: Commit Release Changes
       uses: stefanzweifel/git-auto-commit-action@v4

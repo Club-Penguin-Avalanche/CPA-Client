@@ -14,12 +14,12 @@ jobs:
         ref: "master"
 
     - name: Wait for package update
-      uses: lewagon/wait-on-check-action@v1.3.1
+      uses: fountainhead/action-wait-for-check@v1.1.0
+      id: wait-for-commit
       with:
-        ref: ${{ github.sha }}
-        check-name: 'Update-Package'
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        wait-interval: 10
+        token: ${{ secrets.GITHUB_TOKEN }}
+        checkName: commit
+        ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
     - name: Install Node.js, NPM and Yarn
       uses: actions/setup-node@v3

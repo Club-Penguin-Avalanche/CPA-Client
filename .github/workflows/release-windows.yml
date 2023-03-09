@@ -9,6 +9,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        ref: "master"
 
     - name: Wait for package update
       uses: lewagon/wait-on-check-action@v1.3.1

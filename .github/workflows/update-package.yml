@@ -1,0 +1,27 @@
+name: "Update-Package"
+on:
+  release:
+    types: ["published"]
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Make Release Changes
+      uses: jaywcjlove/github-action-package@main
+      with:
+        version: ${{ github.event.release.tag_name }}
+
+    - name: Commit Release Changes
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        branch: "main"
+        commit_message: "Version ${{ env.version }} [deploy-skip]"
+        commit_user_name: "CPA-Client"
+
+    
+
+    

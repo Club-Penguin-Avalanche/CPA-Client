@@ -4,7 +4,7 @@ on:
     types: ["published"]
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,7 +16,7 @@ jobs:
     - name: Wait for package update
       uses: lewagon/wait-on-check-action@v1.3.1
       with:
-        ref: ${{ github.ref }}
+        ref: ${{ GITHUB_REF }}
         check-name: 'Update-Package'
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         wait-interval: 10

@@ -29,16 +29,23 @@
       "publish": "github"
     },
     "mac": {
+      "category": "game",
       "icon": "./assets/icon.icns"
     },
     "linux": {
+      "category": "game",
       "publish": "github",
       "target": [
         "deb",
         "AppImage"
       ],
-      "maintainer": "renanrcp",
-      "icon": "./assets/icon.png"
+      "icon": "./assets/icon.icns",
+      "maintainer": "renanrcp"
+    },
+    "appImage": {
+      "synopsis": "Cliente do Club Penguin Avalanche",
+      "description": "Cliente que permite jogar CPAvalanche.",
+      "category": "Games"
     }
   },
   "devDependencies": {

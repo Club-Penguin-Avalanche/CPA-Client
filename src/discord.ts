@@ -8,6 +8,7 @@ import { CPLocation, CPLocationType, DiscordState } from "./store/DiscordState";
 import { getUrlFromStore } from "./urlchanger";
 import { promises as fs } from 'fs';
 import { updateRooms } from "./discord/parsers/roomParser";
+import path from "path";
 
 const getDiscordRPCEnabledFromStore = (store: Store) => {
   return store.public.get('enableDiscord');
@@ -277,8 +278,11 @@ export const enableOrDisableDiscordRPCLocationTracking = async (store: Store, ma
 };
 
 const setDefaultRooms = async (store: Store) => {
-  const enRoomsBuff = await fs.readFile('assets/default/rooms-en.jsonp');
-  const ptRoomsBuff = await fs.readFile('assets/default/rooms-pt.jsonp');
+  const enPath = path.join(__dirname, 'assets/default/rooms-en.jsonp');
+  const ptPath = path.join(__dirname, 'assets/default/rooms-pt.jsonp');
+
+  const enRoomsBuff = await fs.readFile(enPath);
+  const ptRoomsBuff = await fs.readFile(ptPath);
 
   const enRooms = enRoomsBuff.toString();
   const ptRooms = ptRoomsBuff.toString();

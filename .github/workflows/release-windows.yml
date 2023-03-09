@@ -16,7 +16,7 @@ jobs:
     - name: Wait for package update
       uses: lewagon/wait-on-check-action@v1.3.1
       with:
-        ref: ${{ secrets.GITHUB_REF }}
+        ref: refs/tags/${{ github.event.release.tag_name }}
         check-name: 'Update-Package'
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         wait-interval: 10

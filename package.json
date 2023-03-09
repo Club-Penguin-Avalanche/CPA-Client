@@ -1,6 +1,6 @@
 {
   "name": "cpavalancheclient",
-  "version": "v1.0.1",
+  "version": "1.0.1",
   "description": "CPAvalanche Client",
   "main": "./compiled/main.js",
   "scripts": {

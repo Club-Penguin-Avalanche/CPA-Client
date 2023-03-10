@@ -135,7 +135,11 @@ export const updateRooms = (store: Store, result: RoomsResponse) => {
       })[0]?.name;
 
       if (localizedName) {
-        name = localizedName;
+        if (localizedName !== '##igloo_card##') {
+          name = localizedName;
+        } else {
+          name = "Iglu";
+        }
       }
     }
 

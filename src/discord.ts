@@ -79,11 +79,11 @@ export const setUnknownLocationStatus = (store: Store, state: DiscordState, matc
 export const setLocationStatus = (store: Store, state: DiscordState, location: CPLocation) => {
   let msgPrefix: string;
 
-  if (location.name.toLowerCase().includes('sensei')) {
+  if (location.match.toLowerCase().includes('sensei')) {
     msgPrefix = getLocalizedTalkingWith(store);
   } else if (location.type === CPLocationType.Game) {
     msgPrefix = getLocalizedPlaying(store);
-  } else if (location.name.toLowerCase().includes('igloo')) {
+  } else if (location.match.toLowerCase().includes('igloo')) {
     msgPrefix = getLocalizedVisiting(store);
   } else {
     msgPrefix = getLocalizedWaddlingAt(store);

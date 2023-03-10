@@ -8,11 +8,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-        ref: "master"
-
     - name: Wait for package update
       uses: fountainhead/action-wait-for-check@v1.1.0
       id: wait-for-commit
@@ -20,6 +15,11 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         checkName: update
         ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        ref: "master"
 
     - name: Make Release Changes
       run: . .github/release-changes.sh "${{ github.event.release.tag_name }}"

@@ -22,7 +22,7 @@ jobs:
       with:
         version: ${{ env.version }}
 
-    - name: commit
+    - name: Commit Release Changes
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
         branch: "master"

@@ -26,11 +26,13 @@
     "productName": "CPAvalanche Client",
     "asar": "false",
     "win": {
-      "publish": "github"
+      "publish": "github",
+      "artifactName": "CPAvalanche-Client-Setup-${version}.${ext}"
     },
     "mac": {
       "category": "game",
-      "icon": "./assets/icon.icns"
+      "icon": "./assets/icon.icns",
+      "artifactName": "CPAvalanche-Client-${version}.${ext}"
     },
     "linux": {
       "category": "game",
@@ -45,7 +47,8 @@
     "appImage": {
       "synopsis": "Cliente do Club Penguin Avalanche",
       "description": "Cliente que permite jogar CPAvalanche.",
-      "category": "Games"
+      "category": "Games",
+      "artifactName": "CPAvalanche-Client-${version}.${ext}"
     },
     "protocols": [
       {

@@ -40,6 +40,7 @@ jobs:
         path: |
           ./dist/*.dmg
           ./dist/*.blockmap
+          ./dist/*.zip
           ./dist/latest-mac.yml
 
     - name: "Upload Artifacts to Release"
@@ -47,7 +48,7 @@ jobs:
       with:
         allowUpdates: true
         artifactErrorsFailBuild: true
-        artifacts: "dist/*.dmg,dist/*.blockmap,dist/latest-mac.yml"
+        artifacts: "dist/*.dmg,dist/*.blockmap,dist/*.zip,dist/latest-mac.yml"
         token: ${{ secrets.GITHUB_TOKEN }}
         omitBodyDuringUpdate: true
         omitNameDuringUpdate: true

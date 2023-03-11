@@ -1,6 +1,7 @@
 import { BrowserWindow } from "electron";
 import path = require("path");
 import { createAdblocker } from "./adblocker";
+import { checkIfLoadedFromProtocol, getUrlFromCommandLineProcess } from "./protocol";
 import { Store } from "./store";
 import { getUrlFromStore } from "./urlchanger";
 
@@ -34,8 +35,16 @@ const createWindow = async (store: Store) => {
   mainWindow.maximize();
 
   await createAdblocker(store, mainWindow);
+
+  let url = '';
+
+  if (checkIfLoadedFromProtocol()) {
+    url = getUrlFromCommandLineProcess();
+  } else {
+    url = getUrlFromStore(store);
+  }
   
-  mainWindow.loadURL(getUrlFromStore(store));
+  mainWindow.loadURL(url);
 
   return mainWindow;
 };

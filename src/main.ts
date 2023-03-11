@@ -4,12 +4,18 @@ import { autoUpdater } from "electron-updater";
 import { startDiscordRPC } from "./discord";
 import loadFlashPlugin from "./flash-loader";
 import startMenu from "./menu";
+import { getUrlFromCommandLine } from "./protocol";
 import createStore from "./store";
 import createWindow from "./window";
 
 log.initialize();
 
 console.log = log.log;
+
+if (!app.requestSingleInstanceLock()) {
+  app.quit();
+  process.exit(0);
+}
 
 const store = createStore();
 
@@ -26,17 +32,43 @@ autoUpdater.checkForUpdatesAndNotify();
 
 let mainWindow: BrowserWindow;
 
+// Someone tried to run a second instance, we should focus our window.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.on("second-instance", (_, commandLine, ___) => {
+  if (!mainWindow) {
+    return;
+  }
+
+  if (mainWindow.isMinimized()) {
+    mainWindow.restore();
+  }
+
+  mainWindow.focus();
+
+  const url = getUrlFromCommandLine(commandLine);
+
+  mainWindow.loadURL(url);
+});
+
 app.on('ready', async () => {
   mainWindow = await createWindow(store);
-  
+
   startMenu(store, mainWindow);
 
   startDiscordRPC(store, mainWindow);
-  
+
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
 });
+
+// Handle the protocol on MacOS.
+app.on('open-url', (event, url) => {
+  event.preventDefault();
+  
+  mainWindow.loadURL(url.replace('cpavalanche://', 'http://play.cpavalanche.net'));
+});
+
 
 app.setAsDefaultProtocolClient("cpavalanche");
 
@@ -51,7 +83,7 @@ app.on('window-all-closed', async () => {
     }
 
     app.quit();
-    
+
     process.exit(0);
   }
 });

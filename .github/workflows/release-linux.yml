@@ -46,13 +46,14 @@ jobs:
         path: |
           ./dist/*.deb
           ./dist/*.AppImage
+          ./dist/latest-linux.yml
 
     - name: "Upload Artifacts to Release"
       uses: "ncipollo/release-action@v1"
       with:
         allowUpdates: true
         artifactErrorsFailBuild: true
-        artifacts: "dist/*.deb,dist/*.AppImage"
+        artifacts: "dist/*.deb,dist/*.AppImage,dist/latest-linux.yml"
         token: ${{ secrets.GITHUB_TOKEN }}
         omitBodyDuringUpdate: true
         omitNameDuringUpdate: true

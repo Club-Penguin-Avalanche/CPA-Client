@@ -37,14 +37,17 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: artifacts
-        path: ./dist/*.exe
+        path: |
+          ./dist/*.exe
+          ./dist/*.blockmap
+          ./dist/latest.yml
 
     - name: "Upload Artifacts to Release"
       uses: "ncipollo/release-action@v1"
       with:
         allowUpdates: true
         artifactErrorsFailBuild: true
-        artifacts: "dist/*.exe"
+        artifacts: "dist/*.exe,dist/*.blockmap,dist/latest.yml"
         token: ${{ secrets.GITHUB_TOKEN }}
         omitBodyDuringUpdate: true
         omitNameDuringUpdate: true

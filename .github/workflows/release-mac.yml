@@ -37,14 +37,17 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: artifacts
-        path: ./dist/*.dmg
+        path: |
+          ./dist/*.dmg
+          ./dist/*.blockmap
+          ./dist/latest-mac.yml
 
     - name: "Upload Artifacts to Release"
       uses: "ncipollo/release-action@v1"
       with:
         allowUpdates: true
         artifactErrorsFailBuild: true
-        artifacts: "dist/*.dmg"
+        artifacts: "dist/*.dmg,dist/*.blockmap,dist/latest-mac.yml"
         token: ${{ secrets.GITHUB_TOKEN }}
         omitBodyDuringUpdate: true
         omitNameDuringUpdate: true

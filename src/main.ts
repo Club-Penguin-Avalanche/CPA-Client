@@ -53,6 +53,9 @@ app.on("second-instance", (_, commandLine, ___) => {
 app.on('ready', async () => {
   mainWindow = await createWindow(store);
 
+  // Some users was reporting problems with cache.
+  mainWindow.webContents.session.clearHostResolverCache();
+
   startMenu(store, mainWindow);
 
   startDiscordRPC(store, mainWindow);

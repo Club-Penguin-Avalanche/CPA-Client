@@ -4,7 +4,7 @@ import { autoUpdater } from "electron-updater";
 import { startDiscordRPC } from "./discord";
 import loadFlashPlugin from "./flash-loader";
 import startMenu from "./menu";
-import { getUrlFromCommandLine } from "./protocol";
+import { getUrlFromCommandLine, PROTOCOL, replaceProtocolToDomain } from "./protocol";
 import createStore from "./store";
 import createWindow from "./window";
 
@@ -69,11 +69,11 @@ app.on('ready', async () => {
 app.on('open-url', (event, url) => {
   event.preventDefault();
   
-  mainWindow.loadURL(url.replace('cpavalanche://', 'https://play.cpavalanche.net/'));
+  mainWindow.loadURL(replaceProtocolToDomain(url));
 });
 
 
-app.setAsDefaultProtocolClient("cpavalanche");
+app.setAsDefaultProtocolClient(PROTOCOL);
 
 app.on('window-all-closed', async () => {
   // On macOS it is common for applications and their menu bar

@@ -1,3 +1,8 @@
+export const PROTOCOL = 'cpavalanche';
+export const PROTOCOL_URL = PROTOCOL + '://';
+export const DOMAIN = 'cpavalanche.net';
+export const PLAY_URL = 'https://play.cpavalanche.net/';
+
 const getCommandLineFromProcess = () => {
   return process.argv;
 };
@@ -5,7 +10,7 @@ const getCommandLineFromProcess = () => {
 export const checkIfLoadedFromProtocol = () => {
   const commandLine = getCommandLineFromProcess();
 
-  return commandLine.some((arg) => arg.startsWith('cpavalanche://'));
+  return commandLine.some((arg) => arg.startsWith(PROTOCOL_URL));
 };
 
 export const getUrlFromCommandLineProcess = () => {
@@ -15,7 +20,15 @@ export const getUrlFromCommandLineProcess = () => {
 };
 
 export const getUrlFromCommandLine = (commandLine: string[]) => {
-  const protocol = commandLine.find((arg) => arg.startsWith('cpavalanche://'));
+  const protocol = commandLine.find((arg) => arg.startsWith(PROTOCOL_URL));
 
-  return protocol.replace('cpavalanche://', 'https://play.cpavalanche.net/');
+  return replaceProtocolToDomain(protocol);
+};
+
+export const replaceProtocolToDomain = (protocol: string) => {
+  if (protocol.includes(DOMAIN)) {
+    return protocol.replace(PROTOCOL_URL, '');
+  }
+
+  return protocol.replace(PROTOCOL_URL, PLAY_URL);
 };

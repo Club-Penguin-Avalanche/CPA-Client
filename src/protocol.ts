@@ -17,5 +17,5 @@ export const getUrlFromCommandLineProcess = () => {
 export const getUrlFromCommandLine = (commandLine: string[]) => {
   const protocol = commandLine.find((arg) => arg.startsWith('cpavalanche://'));
 
-  return protocol.replace('cpavalanche://', 'http://play.cpavalanche.net/');
+  return protocol.replace('cpavalanche://', 'https://play.cpavalanche.net/');
 };

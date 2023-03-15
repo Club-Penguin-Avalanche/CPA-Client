@@ -69,7 +69,7 @@ app.on('ready', async () => {
 app.on('open-url', (event, url) => {
   event.preventDefault();
   
-  mainWindow.loadURL(url.replace('cpavalanche://', 'http://play.cpavalanche.net'));
+  mainWindow.loadURL(url.replace('cpavalanche://', 'https://play.cpavalanche.net/'));
 });
 
 

@@ -4,6 +4,7 @@ import { createAdblocker } from "./adblocker";
 import {
   checkIfLoadedFromProtocol,
   getUrlFromCommandLineProcess,
+  replaceProtocolToDomain,
 } from "./protocol";
 import { Store } from "./store";
 import { getUrlFromStore } from "./urlchanger";
@@ -51,8 +52,12 @@ const createWindow = async (store: Store) => {
 
   let url = "";
 
+  const darwinUrl = store.private.get('darwinUrl');
+
   if (checkIfLoadedFromProtocol()) {
     url = getUrlFromCommandLineProcess();
+  } else if (darwinUrl) {
+    url = replaceProtocolToDomain(darwinUrl);
   } else {
     url = getUrlFromStore(store);
   }

@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>BuildMachineOSBuild</key>
-	<string>16G2136</string>
+	<string>19H1713</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en_US</string>
 	<key>CFBundleExecutable</key>
 	<string>PepperFlashPlayer</string>
 	<key>CFBundleGetInfoString</key>
-	<string>Adobe Flash Player 32.0 r0 Copyright (c) 1996-2019 Adobe. All rights reserved</string>
+	<string>Adobe Flash Player 34.0 r0 Copyright (c) 1996-2022 Adobe. All rights reserved</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.macromedia.PepperFlashPlayer.pepper</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>BRPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>32.0.0.303</string>
+	<string>34.0.0.231</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleSupportedPlatforms</key>
@@ -27,7 +27,7 @@
 		<string>MacOSX</string>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>32.0.0.303</string>
+	<string>34.0.0.231</string>
 	<key>CFPlugInDynamicRegisterFunction</key>
 	<string></string>
 	<key>CFPlugInDynamicRegistration</key>
@@ -35,16 +35,18 @@
 	<key>DTCompiler</key>
 	<string>com.apple.compilers.llvm.clang.1_0</string>
 	<key>DTPlatformBuild</key>
-	<string>8B62</string>
+	<string>11E608c</string>
 	<key>DTPlatformVersion</key>
 	<string>GM</string>
 	<key>DTSDKBuild</key>
-	<string>16B2649</string>
+	<string>16E185</string>
 	<key>DTSDKName</key>
 	<string>macosx10.12</string>
 	<key>DTXcode</key>
-	<string>0810</string>
+	<string>1150</string>
 	<key>DTXcodeBuild</key>
-	<string>8B62</string>
+	<string>11E608c</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>10.6</string>
 </dict>
 </plist>

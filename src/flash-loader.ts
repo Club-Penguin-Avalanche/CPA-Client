@@ -6,7 +6,16 @@ const getPluginName = () => {
 
   switch (process.platform) {
     case 'win32':
-      pluginName = 'assets/flash/pepflashplayer64_32_0_0_303.dll';
+      switch (process.arch) {
+        case 'ia32':
+          pluginName = 'assets/flash/pepflashplayer32_32_0_0_303.dll';
+          break;
+
+        default:
+        case 'x64':
+          pluginName = 'assets/flash/pepflashplayer64_32_0_0_303.dll';
+          break;
+      }
       break;
     case 'darwin':
       pluginName = 'assets/flash/PepperFlashPlayer.plugin';

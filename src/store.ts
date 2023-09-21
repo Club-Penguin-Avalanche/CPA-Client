@@ -14,8 +14,8 @@ export type Store = {
 export const defaultPublicValues: PublicSchema = {
   url: PLAY_URL,
   disableAds: false,
-  enableDiscord: false,
-  enableDiscordTracker: false,
+  enableDiscordRPC: true,
+  enableDiscordRPCTracker: true,
   lastLanguage: 'pt',
 };
 

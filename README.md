@@ -5,8 +5,6 @@ O client oficial do Club Penguin Avalanche!
 
 Os executáveis estão disponíveis em [releases](https://github.com/Club-Penguin-Avalanche/CPA-Client/releases/latest).
 
-OBS: Executável para MacOS pode não funcionar no momento.
-
 ## Features
 
 - Opção de alterar o URL para qualquer CPPS à escolha do usuário.
@@ -16,8 +14,8 @@ OBS: Executável para MacOS pode não funcionar no momento.
 - É possível alterar o Zoom com `CmdOrControl +`, `CmdOrControl -` e `CmdOrContrl + 0`.
 - DevTools.
 - ADBlocker (vem desabilitado - **O CPA NÃO É MONETIZADO**).
-- Discord Rich Presence (vem desabilitado).
-- Rastreamento de sala no Discord Rich Presence (vem desabilitado).
+- Discord Rich Presence (vem habilitado).
+- Rastreamento de sala no Discord Rich Presence (vem habilitado).
 
 #### Alterador de URL
 Você também tem a opção de trocar a URL do jogo caso queira.
@@ -37,7 +35,7 @@ Essa função é irrelevante no __Club Penguin Avalanche__, pois este não possu
 <br>
 
 #### Discord Rich Presense (com rastreamento de sala)
-O client possui função de Discord Rich Presence, que vem desabilitada.
+O client possui função de Discord Rich Presence, que vem habilitada.
 
 O client também pode rastrear a localização do usuário in-game através da Rich Presence. É possível usar a função de RPC com e sem o rastreamento.
 

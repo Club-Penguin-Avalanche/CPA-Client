@@ -1,11 +1,11 @@
 {
   "name": "cpavalancheclient",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "CPAvalanche Client",
   "main": "./compiled/main.js",
   "scripts": {
     "clean": "rimraf compiled/",
-    "copy-files": "copyfiles -u 1 assets/**/* assets/* compiled/assets/",
+    "copy-files": "copyfiles -u 1 assets/**/* assets/* assets/flash/PepperFlashPlayer.plugin/Contents/* assets/flash/PepperFlashPlayer.plugin/Contents/_CodeSignature/* assets/flash/PepperFlashPlayer.plugin/Contents/MacOs/* compiled/assets/",
     "build-tsc": "yarn clean && tsc && yarn copy-files",
     "start": "yarn build-tsc && electron ./compiled/main.js",
     "lint": "eslint -c .eslintrc --ext .ts ./src",

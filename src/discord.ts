@@ -11,19 +11,19 @@ import { updateRooms } from "./discord/parsers/roomParser";
 import path from "path";
 
 const getDiscordRPCEnabledFromStore = (store: Store) => {
-  return store.public.get('enableDiscord');
+  return store.public.get('enableDiscordRPC');
 };
 
 const getDiscordRPCTrackingEnabledFromStore = (store: Store) => {
-  return store.public.get('enableDiscordTracker');
+  return store.public.get('enableDiscordRPCTracker');
 };
 
 const updateDiscordRPCEnabledInStore = (store: Store) => {
-  store.public.set('enableDiscord', !getDiscordRPCEnabledFromStore(store));
+  store.public.set('enableDiscordRPC', !getDiscordRPCEnabledFromStore(store));
 };
 
 const updateDiscordRPCTrackingEnabledInStore = (store: Store) => {
-  store.public.set('enableDiscordTracker', !getDiscordRPCTrackingEnabledFromStore(store));
+  store.public.set('enableDiscordRPCTracker', !getDiscordRPCTrackingEnabledFromStore(store));
 };
 
 export const getDiscordStateFromStore = (store: Store) => {

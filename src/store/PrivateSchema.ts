@@ -5,4 +5,5 @@ export type PrivateSchema = {
   blocker?: ElectronBlocker;
   discordState?: DiscordState;
   fullScreen: boolean;
+  darwinUrl: string | undefined;
 }

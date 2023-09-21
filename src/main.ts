@@ -69,7 +69,12 @@ app.on('ready', async () => {
 app.on('open-url', (event, url) => {
   event.preventDefault();
   
-  mainWindow.loadURL(replaceProtocolToDomain(url));
+  if (mainWindow) {
+    mainWindow.loadURL(replaceProtocolToDomain(url));
+    return;
+  }
+
+  store.private.set('darwinUrl', url);
 });
 
 

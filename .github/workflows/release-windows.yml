@@ -1,20 +1,18 @@
 name: "Release-Windows"
 on:
-  release:
-    types: ["published"]
+  push:
+   branches:
+      - 'win32-support'
 
 jobs:
   publish:
     runs-on: windows-latest
-
-    steps:
-    - name: Wait for package update
-      uses: fountainhead/action-wait-for-check@v1.1.0
-      id: wait-for-commit
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        checkName: update
-        ref: ${{ github.event.pull_request.head.sha || github.sha }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - name: "Windows 32bit"
+            arch: x86
 
     - uses: actions/checkout@v3
       with:
@@ -41,13 +39,3 @@ jobs:
           ./dist/*.exe
           ./dist/*.blockmap
           ./dist/latest.yml
-
-    - name: "Upload Artifacts to Release"
-      uses: "ncipollo/release-action@v1"
-      with:
-        allowUpdates: true
-        artifactErrorsFailBuild: true
-        artifacts: "dist/*.exe,dist/*.blockmap,dist/latest.yml"
-        token: ${{ secrets.GITHUB_TOKEN }}
-        omitBodyDuringUpdate: true
-        omitNameDuringUpdate: true

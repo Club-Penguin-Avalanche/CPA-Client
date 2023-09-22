@@ -6,13 +6,10 @@ on:
 
 jobs:
   publish:
-    runs-on: windows-latest
     strategy:
-      fail-fast: false
       matrix:
         config:
-          - name: "Windows 32bit"
-            arch: ia32
+          - { os: windows-latest, arch: ia32, name: windows-latest-32 }
 
     steps:
     - uses: actions/checkout@v3

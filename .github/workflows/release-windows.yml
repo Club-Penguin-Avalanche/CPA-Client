@@ -6,7 +6,7 @@ on:
 
 jobs:
   publish:
-    runs-on:
+    windows_matrix:
       strategy:
         matrix:
           config:

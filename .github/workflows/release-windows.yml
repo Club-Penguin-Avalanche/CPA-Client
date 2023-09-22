@@ -6,10 +6,11 @@ on:
 
 jobs:
   publish:
-    strategy:
-      matrix:
-        config:
-          - { os: windows-latest, arch: ia32, name: windows-latest-32 }
+    runs-on:
+      strategy:
+        matrix:
+          config:
+            - { os: windows-latest, arch: ia32, name: windows-latest-32 }
 
     steps:
     - uses: actions/checkout@v3

@@ -6,12 +6,11 @@ on:
 
 jobs:
   publish:
-    windows_matrix:
-      strategy:
-        matrix:
-          config:
-            - { os: windows-latest, arch: ia32, name: windows-latest-32 }
-
+    strategy:
+      matrix:
+        config:
+          - { os: windows-latest, arch: ia32, name: windows-latest-32 }
+    runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v3
       with:

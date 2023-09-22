@@ -8,12 +8,11 @@ jobs:
   publish:
     runs-on: windows-latest
     strategy:
-      arch: x86
       fail-fast: false
       matrix:
         config:
           - name: "Windows 32bit"
-            arch: x86
+            arch: ia32
 
     steps:
     - uses: actions/checkout@v3

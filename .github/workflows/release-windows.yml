@@ -17,6 +17,7 @@ jobs:
     - name: Install Node.js, NPM and Yarn
       uses: actions/setup-node@v3
       with:
+        node-version: 'latest'
         architecture: 'x86'
 
     - name: Restore dependencies

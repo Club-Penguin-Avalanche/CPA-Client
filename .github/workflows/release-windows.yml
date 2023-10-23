@@ -6,11 +6,8 @@ on:
 
 jobs:
   publish:
-    strategy:
-      matrix:
-        config:
-          - { os: windows-latest, arch: ia32, name: windows-latest-32 }
-    runs-on: ${{ matrix.os }}
+    runs-on: windows-latest
+
     steps:
     - uses: actions/checkout@v3
       with:
@@ -19,6 +16,8 @@ jobs:
 
     - name: Install Node.js, NPM and Yarn
       uses: actions/setup-node@v3
+      with:
+        architecture: 'x86'
 
     - name: Restore dependencies
       run: yarn install

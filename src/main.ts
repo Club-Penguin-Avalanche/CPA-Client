@@ -84,15 +84,21 @@ app.on('window-all-closed', async () => {
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
-    const discordClient = store.private.get('discordState')?.client;
+    try
+    {
+      const discordClient = store.private.get('discordState')?.client;
 
-    if (discordClient) {
-      await discordClient.destroy();
+      if (discordClient) {
+        await discordClient.destroy();
+      }
     }
+    finally
+    {
+      // Always try to quit
+      app.quit();
 
-    app.quit();
-
-    process.exit(0);
+      process.exit(0);
+    }    
   }
 });
 

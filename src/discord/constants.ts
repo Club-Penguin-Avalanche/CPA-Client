@@ -1,5 +1,4 @@
-import { DOMAIN } from "../protocol";
-
+export const DOMAIN = 'cpavalanche.net';
 export const ROOMS_PATH = 'rooms.jsonp';
 export const ROOMS_JSONP_NAME = 'cp_rooms';
 export const SWF_MIME_FILE = '.swf';

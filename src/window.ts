@@ -1,11 +1,6 @@
 import { BrowserWindow } from "electron";
 import path = require("path");
 import { createAdblocker } from "./adblocker";
-import {
-  checkIfLoadedFromProtocol,
-  getUrlFromCommandLineProcess,
-  replaceProtocolToDomain,
-} from "./protocol";
 import { Store } from "./store";
 import { getUrlFromStore } from "./urlchanger";
 
@@ -50,17 +45,7 @@ const createWindow = async (store: Store) => {
 
   await createAdblocker(store, mainWindow);
 
-  let url = "";
-
-  const darwinUrl = store.private.get('darwinUrl');
-
-  if (checkIfLoadedFromProtocol()) {
-    url = getUrlFromCommandLineProcess();
-  } else if (darwinUrl) {
-    url = replaceProtocolToDomain(darwinUrl);
-  } else {
-    url = getUrlFromStore(store);
-  }
+  const url = getUrlFromStore(store);
 
   mainWindow.loadURL(url);
 

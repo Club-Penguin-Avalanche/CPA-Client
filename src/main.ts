@@ -4,18 +4,12 @@ import { autoUpdater } from "electron-updater";
 import { startDiscordRPC } from "./discord";
 import loadFlashPlugin from "./flash-loader";
 import startMenu from "./menu";
-import { getUrlFromCommandLine, PROTOCOL, replaceProtocolToDomain } from "./protocol";
 import createStore from "./store";
 import createWindow from "./window";
 
 log.initialize();
 
 console.log = log.log;
-
-if (!app.requestSingleInstanceLock()) {
-  app.quit();
-  process.exit(0);
-}
 
 const store = createStore();
 
@@ -32,24 +26,6 @@ autoUpdater.checkForUpdatesAndNotify();
 
 let mainWindow: BrowserWindow;
 
-// Someone tried to run a second instance, we should focus our window.
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-app.on("second-instance", (_, commandLine, ___) => {
-  if (!mainWindow) {
-    return;
-  }
-
-  if (mainWindow.isMinimized()) {
-    mainWindow.restore();
-  }
-
-  mainWindow.focus();
-
-  const url = getUrlFromCommandLine(commandLine);
-
-  mainWindow.loadURL(url);
-});
-
 app.on('ready', async () => {
   mainWindow = await createWindow(store);
 
@@ -64,21 +40,6 @@ app.on('ready', async () => {
     mainWindow = null;
   });
 });
-
-// Handle the protocol on MacOS.
-app.on('open-url', (event, url) => {
-  event.preventDefault();
-  
-  if (mainWindow) {
-    mainWindow.loadURL(replaceProtocolToDomain(url));
-    return;
-  }
-
-  store.private.set('darwinUrl', url);
-});
-
-
-app.setAsDefaultProtocolClient(PROTOCOL);
 
 app.on('window-all-closed', async () => {
   // On macOS it is common for applications and their menu bar

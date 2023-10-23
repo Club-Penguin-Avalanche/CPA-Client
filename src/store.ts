@@ -4,7 +4,8 @@ import { PublicSchema } from './store/PublicSchema';
 import { PrivateSchema } from './store/PrivateSchema';
 import { MemoryStore } from './store/MemoryStore';
 import { FileStore } from './store/FileStore';
-import { PLAY_URL } from './protocol';
+
+export const PLAY_URL = 'https://play.cpavalanche.net/';
 
 export type Store = {
   public: BaseStore<PublicSchema>;

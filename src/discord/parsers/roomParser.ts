@@ -68,6 +68,21 @@ export const updateRooms = (store: Store, result: RoomsResponse) => {
       match = String(room.name.toLowerCase().replace(' ', ''));
     }
 
+    // The match of the 'tic tac toe' minigame is 'tictactoe'.
+    if (name.toLowerCase().includes('tic tac toe')) {
+      match = 'tictactoe';
+    }
+
+    // The match of the 'find four' minigame is 'four'.
+    if (name.toLowerCase().includes('find four') && type === CPLocationType.Game) {
+      match = 'four';
+    }
+
+    // The match of the 'treasure hunt' minigame is 'treasurehunt'.
+    if (name.toLowerCase().includes('treasure hunt')) {
+      match = 'treasurehunt';
+    }
+
     // If the game is a EPF quest we need to replace the 'mission' word to 'q' (quest) in match.
     if (name.toLowerCase().includes('mission')) {
       match = room.name.toLowerCase().replace('mission', 'q');

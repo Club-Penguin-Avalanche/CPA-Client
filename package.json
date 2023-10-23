@@ -9,7 +9,7 @@
     "build-tsc": "yarn clean && tsc && yarn copy-files",
     "start": "yarn build-tsc && electron ./compiled/main.js",
     "lint": "eslint -c .eslintrc --ext .ts ./src",
-    "build-win": "electron-builder build --win --ia32 --publish never",
+    "build-win": "electron-builder build --win --publish never",
     "build-mac": "electron-builder build --mac --publish never",
     "build-linux": "electron-builder build --linux --x64 --publish never"
   },
@@ -27,13 +27,7 @@
     "asar": "false",
     "win": {
       "publish": "github",
-      "artifactName": "CPAvalanche-Client-Setup-${version}.${ext}",
-      "target": {
-        "target": "nsis",
-        "arch": [
-          "ia32"
-        ]
-      }
+      "artifactName": "CPAvalanche-Client-Setup-${version}.${ext}"
     },
     "mac": {
       "category": "game",
